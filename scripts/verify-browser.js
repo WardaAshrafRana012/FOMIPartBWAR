@@ -1,4 +1,4 @@
-﻿import { chromium } from "@playwright/test";
+import { chromium } from "@playwright/test";
 import assert from "node:assert/strict";
 import fs from "node:fs/promises";
 const base = process.env.BASE_URL || "http://localhost:3101";
@@ -48,8 +48,8 @@ await check(
       .locator("#prompt")
       .fill("A deliberate slow reveal of amber glass at blue hour.");
     await page
-      .locator(".storyboard")
-      .getByRole("button", { name: "Creative DNA", exact: false })
+      .locator(".creative-ribbon")
+      .getByRole("button", { name: "Edit project Creative DNA", exact: true })
       .click();
     await page
       .getByRole("dialog")
@@ -137,7 +137,7 @@ await check(
       .waitFor();
     await save();
     const s = (await state()).projects[0].shots[0];
-    assert.equal(s.takes.length, 4);
+    assert.equal(s.takes.length, 6);
     assert.equal(s.chosen, "take-0-1");
     assert.equal(s.takes.at(-1).request.references.length, 2);
   },

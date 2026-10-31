@@ -1,4 +1,5 @@
 import "./studio.css";
+import "./atelier.css";
 export const metadata = {
   title: "Fomi — Continuity",
   description:

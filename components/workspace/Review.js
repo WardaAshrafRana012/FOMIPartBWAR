@@ -184,9 +184,9 @@ export function SequenceReview({ project }) {
         <blockquote className="review-note">“{shot.note}”</blockquote>
       )}
       <p className="muted">
-        Consecutive clip review, not a seamless render. Fixtures are
-        approximately 5 seconds; planned durations and aspect ratios are request
-        metadata.
+        Consecutive full-clip review, not a seamless render. Supplied samples are
+        17.1s and 10.0s portrait films; other fixtures are approximately 5 seconds.
+        Planned durations and aspect ratios are request metadata, not edits.
       </p>
     </>
   );

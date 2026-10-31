@@ -5,7 +5,7 @@ const browser = await chromium.launch({ channel: "chrome" }),
     reducedMotion: "reduce",
   }),
   page = await context.newPage();
-await page.goto("http://localhost:3101");
+await page.goto(process.env.BASE_URL || "http://localhost:3101");
 await page.locator("#prompt").waitFor();
 await page.waitForTimeout(650);
 await page.screenshot({ path: "docs/screenshots/studio-desktop.png" });

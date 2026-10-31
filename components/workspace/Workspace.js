@@ -31,6 +31,7 @@ import Media from "./Media";
 import TakeStrip from "./TakeStrip";
 import SequenceDock from "./SequenceDock";
 import ProjectDialogs from "./ProjectDialogs";
+import CreativeRibbon from "./CreativeRibbon";
 export default function Workspace() {
   const store = useProject(),
     {
@@ -55,6 +56,7 @@ export default function Workspace() {
     [tab, setTab] = useState("direction"),
     [mobileMode, setMobileMode] = useState("preview"),
     [focusMode, setFocusMode] = useState(false);
+  const [view, setView] = useState("director");
   const shot =
     project?.shots.find((s) => s.id === project.selectedShot) ||
     project?.shots[0];
@@ -199,7 +201,7 @@ export default function Workspace() {
   };
   return (
     <div
-      className={`workspace ${collapsed ? "rail-collapsed" : ""} ${focusMode ? "focus-mode" : ""} mobile-mode-${mobileMode}`}
+      className={`workspace atelier view-${view} ${collapsed ? "rail-collapsed" : ""} ${focusMode ? "focus-mode" : ""} mobile-mode-${mobileMode}`}
     >
       <header className="topbar">
         <a href="/" className="header-brand" aria-label="Fomi Continuity">
@@ -300,6 +302,13 @@ export default function Workspace() {
           </button>
         </div>
       </header>
+      <CreativeRibbon
+        project={project}
+        view={view}
+        onView={setView}
+        onDNA={() => setModal("dna")}
+        onReview={() => setModal("review")}
+      />
       <Storyboard {...storyboard} />
       <main className="main-workspace">
         {save.startsWith("Save failed") && (
@@ -405,7 +414,7 @@ export default function Workspace() {
                     </span>
                   </span>
                   <span>
-                    {shot.aspect} <span>·</span> {shot.duration}s planned
+                    {take?.actualAspect || shot.aspect} <span>·</span> {take?.actualDuration ? `${take.actualDuration.toFixed(1)}s source / ` : ""}{shot.duration}s planned
                   </span>
                 </div>
                 <Media

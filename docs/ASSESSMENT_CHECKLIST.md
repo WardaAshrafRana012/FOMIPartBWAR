@@ -23,7 +23,7 @@ The supplied brief selects **Video Generation Workspace** and explicitly request
 
 ### State / transformation tests
 
-`npm test`: **13 / 13 pass**.
+`npm test`: **14 / 14 pass**.
 
 - Reference inheritance, explicit none and independent snapshots.
 - Historical direction differences without rewriting old takes.
@@ -96,3 +96,10 @@ The native browser integration was unavailable/timed out in the earlier session.
 - Keyboard workflows and focus are tested, but there is no screen-reader user study or full assistive-technology/WCAG audit.
 - No real Safari/iOS/Firefox, physical touch devices, OS text scaling, high-contrast mode or measured slow-device performance testing. Media errors have a fallback. No Lighthouse score is claimed.
 - No GitHub remote or Vercel deployment is configured. Publish to the intended accounts, verify the deployed URL, update `submission-links.json` and regenerate the PDF. Draft links remain explicitly pending.
+
+## Supplied-media and unified-layout update
+- Ivory editorial storyboard and Creative DNA ribbon frame the dark director preview. Storyboard expands to a contact sheet; Director restores the inspector; Sequence opens consecutive review.
+- Both supplied portrait MP4s play locally, with extracted posters, visible provenance and actual duration/ratio metadata. Full files are played without silent trimming or cropping. Their differing products are not presented as model consistency.
+- Existing project edits and choices survive a one-time sample-library migration.
+- Verified `node scripts/verify-supplied-media.js`: decode, source metadata, playback, reload/selection, sequence advancement, mobile overflow and no page errors.
+- Supplied files have no independently verified redistribution license; they are excluded from the project fixture CC0 dedication.

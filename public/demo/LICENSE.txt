@@ -12,3 +12,5 @@ https://creativecommons.org/publicdomain/zero/1.0/
 Legacy SVG references are original procedural artwork. User-uploaded reference
 images and third-party software/icons retain their own rights and licenses.
 See docs/MEDIA.md for provenance, prompts and production method.
+
+EXCEPTION: supplied-01.mp4, supplied-02.mp4 and their WebP posters are user-supplied sample footage. They are not covered by the CC0 dedication above. Their underlying rights remain with their respective owners. No independent redistribution license has been verified.

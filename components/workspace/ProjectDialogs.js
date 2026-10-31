@@ -312,6 +312,7 @@ export default function ProjectDialogs({
             </span>
           </div>
           <p>{take.request.prompt}</p>
+          {take.mediaOrigin === "user-supplied" && <p className="muted">Supplied sample footage · {take.actualDuration?.toFixed(1)}s · portrait 9:16. Direction below is illustrative demo metadata, not the request that produced this footage. Different product examples do not demonstrate model consistency.</p>}
           <DirectionDiff project={project} take={take} />
           <div className="request-facts">
             <span>{take.request.duration}s requested</span>
@@ -320,7 +321,7 @@ export default function ProjectDialogs({
           </div>
           <p className="muted">
             Prepared cinematic fixture. Request settings do not change the
-            pixels. The original media is approximately 5 seconds, landscape.
+            pixels. Playback uses the complete original clip; planned duration and requested format do not trim or reframe footage.
           </p>
           <details className="raw-request">
             <summary>Full submitted request</summary>

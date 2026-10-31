@@ -37,3 +37,6 @@ Observe directors resuming genuine projects and test whether they can recover in
 ## What single workflow differentiates it?
 
 **Brief → visual DNA and references → explicit shot request → frozen take provenance → comparison → selection with a reason → continuity review → portable, restorable project package.** The interface preserves the relationship between an intention and an editorial decision, not only a list of clips.
+
+### Final visual and sample-media decisions
+A light editorial shell and dark cinema stage combine the contact-sheet overview with focused direction. Desktop views change the layout rather than creating separate tools. Hover and entrance effects respect reduced motion. Two supplied portrait ads are first-shot sample alternatives, explicitly distinct from mock model output. Original campaign fixtures remain available so the chosen coherent campaign is preserved. Actual clip duration and planned shot duration are separate; this frontend does not silently trim or reframe supplied footage.

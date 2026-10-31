@@ -53,7 +53,7 @@ test("undo preserves newly completed takes while restoring editorial decisions",
   ];
   const restored = restoreEditorial(before, current);
   assert.equal(restored.shots[0].chosen, before.shots[0].chosen);
-  assert.equal(restored.shots[0].takes.length, 3);
+  assert.equal(restored.shots[0].takes.length, before.shots[0].takes.length + 1);
   assert.equal(restored.activity.length, 1);
 });
 test("import isolates all editorial identities and rejects unsafe media", () => {

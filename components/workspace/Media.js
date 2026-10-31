@@ -107,7 +107,7 @@ export default function Media({
           />
         )}
         <span className="fixture-label">
-          <span /> CINEMATIC MOTION STUDY
+          <span /> {take.mediaOrigin === "user-supplied" ? "SUPPLIED SAMPLE · NOT APP-GENERATED" : "CINEMATIC MOTION STUDY"}
         </span>
         {!playing && !failed && (
           <button

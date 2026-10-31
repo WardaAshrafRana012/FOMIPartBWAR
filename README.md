@@ -101,3 +101,11 @@ Framework references: [route handlers](https://nextjs.org/docs/app/getting-start
 ## Honest boundaries
 
 This is a working frontend demonstration, not a static design and not a real AI service. Camera-motion fixtures repeat, approximate five seconds and remain landscape. Entered timing, ratios, prompts and references are request metadata. Continuity review compares metadata and decisions; it does not inspect footage. Shared comparison playback is approximate browser playback, not frame synchronization. Sequence review does not trim or render a film. JSON includes fixture paths and reference thumbnails, not embedded videos; clips can be downloaded individually. No cloud backup, cross-tab conflict resolution, payments, auth, collaboration or actual image/video generation. Sudden crashes can lose edits within the debounce window. Real Safari/iOS and assistive-technology user testing remain unverified.
+
+### Unified atelier update
+The workspace now combines an ivory storyboard and Creative DNA ribbon with a dark director stage and an ordered sequence dock. Desktop Storyboard expands the shot rail into a visual contact sheet; Director restores the direction inspector; Sequence opens consecutive playback. Mobile retains its dedicated Preview / Direction / Sequence navigation. No billing or generation limits were introduced.
+
+Hover zoom, sequence lift, press feedback, focus treatments and dialog entrance transitions respect reduced-motion preferences. Verify this update with `node scripts/verify-atelier.js` (defaults to port 3102; accepts BASE_URL). The submission PDF includes the newer design and supplied footage.
+
+### Supplied video examples
+The first shot now offers two user-supplied portrait sample films, with actual extracted posters, original audio (muted initially), full playback and individual downloads. Existing chosen takes are preserved. The simulated first-shot generation returns these prepared examples and labels them as supplied, not app-generated. The 17.1s and 10.0s source clips are longer than the shot plan; there is no implicit trimming. See docs/MEDIA.md for provenance and rights status.

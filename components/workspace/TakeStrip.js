@@ -70,7 +70,7 @@ export default function TakeStrip({
                   <Check size={10} /> In sequence
                 </span>
               )}
-              <span className="take-duration">{t.request.duration}s</span>
+              <span className="take-duration">{t.actualDuration ? `${t.actualDuration.toFixed(1)}s · 9:16` : `${t.request.duration}s`}</span>
             </div>
             <span>
               <strong>{t.name}</strong>

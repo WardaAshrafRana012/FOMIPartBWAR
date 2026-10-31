@@ -1,0 +1,523 @@
+/* Editorial surfaces frame a dark cinema; interaction stays shared across views. */
+.atelier {
+  --bg: #f3f0e8;
+  --panel: #f8f5ee;
+  --text: #242c26;
+  --muted: #687067;
+  --dim: #74786c;
+  --line: #d8d6ca;
+  --accent: #285744;
+  background: var(--bg);
+  grid-template-rows: 72px 64px minmax(0, 1fr) 154px;
+}
+.atelier .topbar,
+.atelier .storyboard,
+.atelier .sequence-tray,
+.atelier .direction-panel {
+  background: #f3f0e8;
+  color: var(--text);
+}
+.atelier .topbar {
+  gap: 18px;
+}
+.atelier .brand {
+  font-family: Georgia, serif;
+  font-weight: 500;
+  letter-spacing: -1.5px;
+  font-size: 32px;
+}
+.atelier .brand-product {
+  color: #3c493f;
+}
+.atelier .brand > span {
+  font-size: 13px;
+  top: -4px;
+  right: -10px;
+}
+.atelier button,
+.atelier .button {
+  background: #eeece3;
+  border-color: #c9cdbf;
+  color: inherit;
+}
+.atelier button:hover:not(:disabled),
+.atelier .button:hover {
+  background: #e0e6d9;
+  border-color: #82998a;
+}
+.atelier input,
+.atelier textarea,
+.atelier select {
+  background: #faf8f2;
+  border-color: #cfd2c6;
+  color: #29372d;
+}
+.atelier .project-switch select {
+  background: transparent;
+}
+.atelier .primary,
+.atelier .generate-button,
+.atelier .export-button {
+  background: #1b4232;
+  color: #f5f4ec;
+  border-color: #1b4232;
+}
+.atelier .primary:hover,
+.atelier .generate-button:hover,
+.atelier .export-button:hover {
+  background: #2a5a43;
+  color: white;
+}
+.atelier .storyboard {
+  grid-row: 3/4;
+  padding-top: 20px;
+}
+.atelier .main-workspace {
+  grid-row: 3;
+}
+.atelier .sequence-tray {
+  grid-column: 1/-1;
+  grid-row: 4;
+  border-top: 1px solid var(--line);
+}
+.creative-ribbon {
+  grid-column: 1/-1;
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--line);
+  padding: 0 24px;
+  min-width: 0;
+  gap: 30px;
+  background: #f8f6ef;
+}
+.atelier-views {
+  display: flex;
+  align-self: stretch;
+  gap: 20px;
+  flex-shrink: 0;
+}
+.atelier .atelier-views button {
+  border: 0;
+  border-radius: 0;
+  background: none;
+  padding: 0 2px;
+  border-bottom: 3px solid transparent;
+  font:
+    16px Georgia,
+    serif;
+}
+.atelier .atelier-views button[aria-pressed="true"] {
+  border-bottom-color: #285744;
+  color: #1b4232;
+}
+.atelier .ribbon-dna {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: flex-start;
+  gap: 20px;
+  border: 0;
+  background: none;
+  padding: 6px 0;
+  text-align: left;
+}
+.ribbon-title {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  font:
+    15px Georgia,
+    serif;
+}
+.ribbon-dna img {
+  object-fit: cover;
+  border-radius: 3px;
+}
+.ribbon-palette {
+  display: flex;
+  gap: 3px;
+}
+.ribbon-palette i {
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  border: 1px solid #0001;
+}
+.ribbon-rule {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+  border-left: 1px solid var(--line);
+  padding-left: 16px;
+}
+.ribbon-rule small {
+  font-size: 8px;
+  letter-spacing: 1.1px;
+}
+.ribbon-rule strong {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 10px;
+  font-weight: 400;
+  max-width: 240px;
+}
+.ribbon-edit {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-left: auto;
+  font-size: 10px;
+  white-space: nowrap;
+}
+.atelier .dna-card {
+  display: none;
+}
+.atelier .story-progress {
+  margin-top: 22px;
+}
+.atelier .shot-item.current {
+  background: #e5eadd;
+  border-color: #527c62;
+}
+.atelier .shot-state.has-choice,
+.atelier .add-shot,
+.atelier .brief-link,
+.atelier .dna-card small,
+.atelier .local-note,
+.atelier .local-note button {
+  color: #43634c;
+}
+.atelier .shot-heading h1,
+.atelier .inspector-intro h3,
+.atelier .section-heading h2 {
+  font-family: Georgia, serif;
+  font-weight: 400;
+}
+.atelier .preview-column {
+  background: #1c201c;
+  color: #e6e8df;
+  padding: 20px 22px;
+  border-radius: 5px;
+  --muted: #aeb7a7;
+  --dim: #a2ad9a;
+  --text: #e6e8df;
+  --line: #454d40;
+  --accent: #b9d4a7;
+}
+.atelier .preview-column button {
+  color: #e6e8df;
+  background: #293027;
+  border-color: #4a5545;
+}
+.atelier .preview-column input {
+  color: #e6e8df;
+  background: transparent;
+}
+.atelier .preview-column .eyebrow {
+  color: #aeb7a7;
+}
+.atelier .preview-column .take-card.selected,
+.atelier .preview-column .take-card.chosen {
+  border-color: #9dc293;
+}
+.atelier .direction-panel {
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+.atelier .panel-tabs button {
+  background: none;
+  color: #606b5d;
+}
+.atelier .panel-tabs button.active,
+.atelier .panel-tabs button[aria-selected="true"] {
+  color: #244d38;
+  border-color: #244d38;
+}
+.atelier .inherit-note,
+.atelier .effective,
+.atelier .effective-details,
+.atelier .reference-disclosure {
+  background: #e9ece1;
+  color: #3e503d;
+  border-color: #c5d0bf;
+}
+.atelier .inherit-note strong,
+.atelier .inherit-note small,
+.atelier .setting-hint {
+  color: #52654b;
+}
+.atelier .generate-footer {
+  background: #f3f0e8;
+  border-color: var(--line);
+}
+.atelier .sequence-clips button {
+  background: #f9f7f0;
+}
+.atelier .sequence-clips button.sequence-active {
+  background: #e6eddf;
+  border-color: #638269;
+}
+.atelier .sequence-check {
+  color: #285744;
+  background: #e1ead8;
+}
+.atelier .dialog {
+  background: #f3f0e8;
+  color: #29372d;
+  --text: #29372d;
+  --muted: #65705f;
+  --line: #ced2c4;
+}
+.atelier .mobile-shot-bar,
+.atelier .mobile-work-modes {
+  background: #f3f0e8f5;
+  border-color: #cbd1c2;
+}
+.atelier .mobile-shot-bar button,
+.atelier .mobile-work-modes button {
+  color: #4d654b;
+  background: none;
+}
+.atelier .mobile-work-modes button.active {
+  background: #dfe9d6;
+  color: #204931;
+}
+.atelier .notice {
+  background: #e4ebdb;
+  color: #2e4930;
+  border-color: #a5b79b;
+}
+.atelier .shot-thumb img,
+.atelier .take-card img,
+.atelier .sequence-clips img {
+  transition:
+    transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1),
+    filter 300ms;
+}
+@media (hover: hover) {
+  .atelier .shot-select:hover img,
+  .atelier .take-card:hover img {
+    transform: scale(1.045);
+    filter: brightness(1.1);
+  }
+  .atelier .sequence-clips button:hover {
+    transform: translateY(-3px);
+  }
+  .atelier .generate-button:hover svg {
+    transform: translateX(3px);
+  }
+}
+.atelier button,
+.atelier a,
+.atelier input,
+.atelier textarea,
+.atelier select {
+  transition:
+    background 180ms,
+    border-color 180ms,
+    color 180ms,
+    box-shadow 180ms,
+    transform 220ms;
+}
+.atelier button:active:not(:disabled) {
+  transform: translateY(1px);
+}
+.atelier textarea:focus,
+.atelier input:focus {
+  box-shadow: 0 0 0 3px #50774715;
+}
+.atelier .generate-button svg {
+  transition: transform 220ms;
+}
+.atelier .dialog[open] {
+  animation: atelier-dialog 240ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+.atelier .dialog::backdrop {
+  background: #101b15a6;
+  backdrop-filter: blur(5px);
+}
+.atelier .preview-column,
+.atelier .direction-panel {
+  animation: atelier-arrive 350ms ease-out;
+}
+@keyframes atelier-dialog {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes atelier-arrive {
+  from {
+    opacity: 0.4;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (min-width: 1001px) {
+  .atelier.view-storyboard {
+    grid-template-columns: minmax(420px, 1fr) minmax(0, 1fr);
+  }
+  .atelier.view-storyboard .storyboard .shot-list {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .atelier.view-storyboard .storyboard .shot-select {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .atelier.view-storyboard .storyboard .shot-thumb {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16/10;
+  }
+  .atelier.view-storyboard .storyboard .shot-info strong {
+    font:
+      20px Georgia,
+      serif;
+  }
+  .atelier.view-storyboard .direction-panel {
+    display: none;
+  }
+  .atelier.view-storyboard .work-area {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .atelier.view-storyboard .shot-info {
+    padding: 5px;
+  }
+}
+.atelier.focus-mode {
+  grid-template-rows: 72px 64px minmax(0, 1fr);
+}
+.atelier.focus-mode .main-workspace {
+  grid-row: 3;
+}
+@media (max-width: 1200px) {
+  .creative-ribbon {
+    gap: 20px;
+    padding-inline: 20px;
+  }
+  .ribbon-dna img,
+  .ribbon-palette,
+  .ribbon-rule:nth-last-child(2) {
+    display: none;
+  }
+  .atelier .ribbon-dna {
+    gap: 15px;
+  }
+}
+@media (max-width: 1000px) {
+  .atelier {
+    grid-template-rows: 72px 60px minmax(0, 1fr) 154px;
+  }
+  .ribbon-rule {
+    display: none;
+  }
+  .atelier .preview-column {
+    padding: 16px;
+  }
+}
+@media (max-width: 700px) {
+  .atelier {
+    display: flex;
+  }
+  .atelier .topbar {
+    background: #f3f0e8f5;
+  }
+  .creative-ribbon {
+    padding: 0 16px;
+    gap: 8px;
+    min-height: 51px;
+    flex-shrink: 0;
+  }
+  .atelier-views {
+    display: none;
+  }
+  .atelier .ribbon-dna {
+    gap: 14px;
+  }
+  .ribbon-dna img {
+    display: block;
+    width: 50px;
+    height: 30px;
+  }
+  .ribbon-title {
+    font-size: 14px;
+  }
+  .atelier .preview-column {
+    padding: 15px 12px;
+    margin: 0 -4px;
+  }
+  .atelier .sequence-tray {
+    background: #f3f0e8;
+  }
+  .atelier .mobile-shot-bar {
+    margin-bottom: 12px;
+  }
+  .atelier .direction-panel {
+    margin-top: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atelier *,
+  .atelier *::before,
+  .atelier *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}
+/* Light surfaces need their own explicit ink, independent of the cinema theme. */
+.atelier {
+  color: #242c26;
+}
+.atelier .creative-ribbon {
+  color: #293c2f;
+}
+.atelier
+  .direction-panel
+  :is(
+    h3,
+    p,
+    label,
+    summary,
+    small,
+    .field-label,
+    .reference-scope,
+    .history-prompt
+  ),
+.atelier .dialog :is(h2, h3, p, label, summary, small),
+.atelier .sequence-clips small {
+  color: #53624e;
+}
+.atelier .direction-panel h3,
+.atelier .dialog h2 {
+  color: #25382a;
+}
+.atelier .direction-panel .field-label {
+  color: #3d503b;
+}
+.atelier .generate-footer > p,
+.atelier .reload-hint {
+  color: #5d6c55;
+}
+.atelier .ribbon-dna:hover {
+  color: #1b4232;
+}
+.atelier .shot-info small,
+.atelier .shot-state {
+  color: #5f6e57;
+}
+.atelier .view-storyboard {
+  color: inherit;
+}

@@ -1,0 +1,25 @@
+import test from "node:test";
+import assert from "node:assert/strict";
+import { seed } from "../data/seed.js";
+import { recover } from "../lib/project.js";
+import { withSuppliedMedia } from "../lib/supplied-media.js";
+test("supplied examples are first, round-trip safely and never replace a chosen take", () => {
+  const state = seed(), project = state.projects[0], shot = project.shots[0];
+  assert.equal(shot.takes[0].src, "/demo/supplied-01.mp4");
+  assert.equal(shot.preview, shot.takes[0].id);
+  assert.equal(shot.chosen, "take-0-1");
+  assert.equal(shot.takes[0].actualAspect, "9:16");
+  assert.equal(recover(JSON.stringify(state), seed).recovered, false);
+  assert.deepEqual(withSuppliedMedia(project), project);
+  const legacy = structuredClone(project);
+  delete legacy.suppliedMediaVersion;
+  legacy.shots[0].takes = legacy.shots[0].takes.slice(2);
+  legacy.shots[0].note = "Keep this decision";
+  const migrated = withSuppliedMedia(legacy);
+  assert.equal(migrated.shots[0].takes.length, 4);
+  assert.equal(migrated.shots[0].chosen, legacy.shots[0].chosen);
+  assert.equal(migrated.shots[0].note, "Keep this decision");
+  const invalid = structuredClone(state);
+  invalid.projects[0].shots[0].takes[0].actualDuration = "not a duration";
+  assert.equal(recover(JSON.stringify(invalid), seed).recovered, true);
+});

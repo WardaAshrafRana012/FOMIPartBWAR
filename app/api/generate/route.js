@@ -1,4 +1,5 @@
 import { validateRequest } from "../../../lib/project.js";
+import { suppliedMedia } from "../../../lib/supplied-media.js";
 export async function POST(request) {
   let body;
   try {
@@ -23,9 +24,10 @@ export async function POST(request) {
     id: crypto.randomUUID(),
     stages: ["queued", "generating", "completed"],
     takes: [0, 1].map((n) => ({
+      ...(index === 0 ? { ...suppliedMedia[(hash + n) % 2], mediaOrigin: "user-supplied", actualDuration: suppliedMedia[(hash + n) % 2].duration, actualAspect: "9:16", provenance: "Supplied demo footage, not generated from the submitted request." } : {}),
       id: crypto.randomUUID(),
-      src: `/demo/${fixtures[index]}${(hash + n) % 2 ? "-alt" : ""}.webm`,
-      poster: `/demo/${["invitation", "material", "ritual", "signature"][index]}.webp`,
+      src: index === 0 ? suppliedMedia[(hash + n) % 2].src : `/demo/${fixtures[index]}${(hash + n) % 2 ? "-alt" : ""}.webm`,
+      poster: index === 0 ? suppliedMedia[(hash + n) % 2].poster : `/demo/${["invitation", "material", "ritual", "signature"][index]}.webp`,
       request: body,
       createdAt: new Date().toISOString(),
       dnaSignature: body.dnaSignature,

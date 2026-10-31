@@ -1,4 +1,5 @@
 import { requestFor, signature } from "../lib/project.js";
+import { withSuppliedMedia } from "../lib/supplied-media.js";
 export function seed() {
   const p = {
     id: "after-hours",
@@ -85,5 +86,5 @@ export function seed() {
       fixture: true,
     }));
   });
-  return { version: 1, active: p.id, projects: [p] };
+  return { version: 1, active: p.id, projects: [withSuppliedMedia(p)] };
 }
