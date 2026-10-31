@@ -1,0 +1,40 @@
+/* Soft Geometric: one self-hosted family, deliberate weight and scale. */
+.atelier {
+  --studio-type: var(--font-studio), "Segoe UI", sans-serif;
+  font-family: var(--studio-type);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+}
+.atelier :is(h1,h2,h3,h4,p,button,input,select,textarea,label,summary,small,.brand,.brand-product,.ribbon-title,.review-note,.timecode,.eyebrow,.sequence-title h2>span) {
+  font-family: var(--studio-type);
+}
+.atelier .brand { font-size:28px; font-weight:650; letter-spacing:-1.5px; }
+.atelier .brand-product { font-size:15px; font-weight:450; letter-spacing:-.45px; }
+.atelier .shot-heading h1 { font-family:var(--studio-type); font-size:32px; line-height:1.2; font-weight:550; letter-spacing:-1.2px; margin-top:7px; }
+.atelier .inspector-intro h3 { font-family:var(--studio-type); font-size:22px; line-height:1.3; font-weight:550; letter-spacing:-.65px; }
+.atelier .section-heading h2,.atelier .sequence-title h2,.atelier .takes-heading h2 { font-family:var(--studio-type); font-size:15px; font-weight:600; letter-spacing:-.4px; }
+.atelier .dialog>header h2 { font-family:var(--studio-type); font-size:28px; font-weight:550; letter-spacing:-1px; line-height:1.25; }
+.atelier .dialog h3 { font-weight:550; letter-spacing:-.4px; }
+.atelier .dialog p.dialog-intro { font-family:var(--studio-type); font-size:22px; line-height:1.45; font-weight:450; letter-spacing:-.5px; }
+.atelier .ribbon-title { font-family:var(--studio-type); font-size:13px; font-weight:550; letter-spacing:-.25px; }
+.atelier .atelier-views button { font-family:var(--studio-type); font-size:13px; font-weight:500; letter-spacing:-.3px; }
+.atelier button { font-weight:500; }
+.atelier :is(.generate-button,.primary,.export-button) { font-weight:600; letter-spacing:-.2px; }
+.atelier .direction-body>textarea { font-size:13px; line-height:1.8; font-weight:400; }
+.atelier .field-label,.atelier .field { font-size:12px; font-weight:500; }
+.atelier .shot-info strong,.atelier .sequence-clips strong { font-weight:550; letter-spacing:-.2px; }
+.atelier .eyebrow { font-weight:550; letter-spacing:1.3px; }
+.atelier .review-note { font-family:var(--studio-type); font-size:20px; font-weight:450; line-height:1.6; letter-spacing:-.4px; }
+.atelier .timecode,.atelier .take-duration { font-variant-numeric:tabular-nums; }
+.atelier .decision-row input { font-size:12px; line-height:1.6; }
+.atelier.view-storyboard .storyboard .shot-info strong { font-family:var(--studio-type); font-size:20px; font-weight:550; letter-spacing:-.6px; line-height:1.35; }
+@media(min-width:1700px) { .atelier .shot-heading h1 { font-size:36px; } .atelier .inspector-intro h3 { font-size:24px; } .atelier .direction-body>textarea { font-size:14px; } }
+@media(max-width:700px) {
+  .atelier .header-brand .brand { font-size:25px; }
+  .atelier .shot-heading h1 { font-size:27px; letter-spacing:-1px; }
+  .atelier .inspector-intro h3 { font-size:24px; }
+  .atelier .sequence-title h2 { font-size:23px; }
+  .atelier .dialog>header h2 { font-size:25px; }
+  .atelier .mobile-work-modes button { font-size:10px; font-weight:550; }
+  .atelier .ribbon-title { font-size:13px; }
+}

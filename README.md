@@ -115,3 +115,6 @@ The selected sequence and its shot images now use four extracted product-film mo
 
 ### Claymorphism visual finish
 A warm ivory/sage clay treatment adds rounded panels, raised buttons, inset fields and restrained soft shadows. The cinema stage remains dark. Hover/press feedback, keyboard focus and reduced-motion support are retained. This is a presentation-layer update; generation and persistence semantics are unchanged.
+
+### Soft Geometric typography
+Option 3 uses a locally hosted Plus Jakarta Sans variable font through next/font/local. Shot titles use medium weight with tighter tracking; section headings and buttons use restrained semibold weights; body text and form controls share the same family. Responsive sizes retain the phone-specific layout. Font source: Google Fonts repository, ofl/plusjakartasans; copyright The Plus Jakarta Sans Project Authors, SIL Open Font License 1.1. The full license is bundled in public/fonts/OFL-Plus-Jakarta-Sans.txt. No runtime font-provider request is needed.
