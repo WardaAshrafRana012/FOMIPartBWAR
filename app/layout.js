@@ -10,7 +10,7 @@ const jakarta = localFont({
   variable: "--font-studio",
 });
 export const metadata = {
-  title: "Fomi — Continuity",
+  title: "Fomi — WAR",
   description:
     "A creative direction workspace. From a brief to a considered sequence.",
 };

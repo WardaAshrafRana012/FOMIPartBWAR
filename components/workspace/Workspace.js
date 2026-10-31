@@ -204,12 +204,12 @@ export default function Workspace() {
       className={`workspace atelier view-${view} ${collapsed ? "rail-collapsed" : ""} ${focusMode ? "focus-mode" : ""} mobile-mode-${mobileMode}`}
     >
       <header className="topbar">
-        <a href="/" className="header-brand" aria-label="Fomi Continuity">
+        <a href="/" className="header-brand" aria-label="Fomi WAR">
           <span className="brand">
             fomi<span>✳</span>
           </span>
           <span className="brand-divider" />
-          <span className="brand-product">continuity</span>
+          <span className="brand-product">WAR</span>
         </a>
         <div className="project-heading">
           <span className="eyebrow">DIRECTOR’S WORKSPACE</span>

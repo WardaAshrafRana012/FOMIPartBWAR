@@ -66,3 +66,9 @@
 @media(max-width:1200px) { .atelier .creative-ribbon { gap:16px; } .atelier .atelier-views button { font-size:14px; padding-inline:9px; } }
 @media(max-width:700px) { .atelier .topbar { background:#eef0e7f5; } .atelier .preview-column { border-radius:18px; padding:15px 12px; } .atelier .direction-panel { border-radius:19px; } .atelier .mobile-shot-bar { background:#eaece3; } .atelier .ribbon-dna { border-radius:0; } .atelier .dialog { border-radius:20px; } .atelier .sequence-tray { background:#eaece3; } }
 @media(prefers-reduced-motion:reduce) { .atelier *,.atelier *::before,.atelier *::after { animation:none!important; transition:none!important; scroll-behavior:auto!important; } }
+/* Scrollports need space for raised shadows, keyboard rings and hover lift. */
+.atelier .sequence-clips { padding:8px 8px 12px; margin-top:5px; }
+.atelier .take-strip { padding:7px 6px 10px; }
+@media(hover:hover) {
+  .atelier .sequence-clips button:hover { transform:translateY(-2px); }
+}
