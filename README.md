@@ -112,3 +112,6 @@ The first shot now offers two user-supplied portrait sample films, with actual e
 
 ### Matched storyboard
 The selected sequence and its shot images now use four extracted product-film moments, with matching silent four-second portrait excerpts. Both full supplied films remain sample alternatives. The second branded product is not mixed into the default chosen sequence. Run `node scripts/create-supplied-storyboard.js` to rebuild the matched media. Alternate mock outputs may repeat an excerpt; this is disclosed in provenance.
+
+### Claymorphism visual finish
+A warm ivory/sage clay treatment adds rounded panels, raised buttons, inset fields and restrained soft shadows. The cinema stage remains dark. Hover/press feedback, keyboard focus and reduced-motion support are retained. This is a presentation-layer update; generation and persistence semantics are unchanged.
