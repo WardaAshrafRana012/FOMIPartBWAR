@@ -185,7 +185,7 @@ export function SequenceReview({ project }) {
       )}
       <p className="muted">
         Consecutive full-clip review, not a seamless render. Supplied samples are
-        17.1s and 10.0s portrait films; other fixtures are approximately 5 seconds.
+        17.1s and 10.0s portrait films; matched shot excerpts are approximately 4 seconds.
         Planned durations and aspect ratios are request metadata, not edits.
       </p>
     </>

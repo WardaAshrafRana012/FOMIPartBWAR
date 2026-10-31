@@ -155,7 +155,7 @@ export default function ProjectDialogs({
           <div className="dna-dialog-grid">
             <div className="dna-visual">
               <Image
-                src="/demo/signature.webp"
+                src={project.references?.[0]?.src || "/demo/study-reveal.webp"}
                 alt="After Hours fragrance product reference"
                 width={600}
                 height={400}

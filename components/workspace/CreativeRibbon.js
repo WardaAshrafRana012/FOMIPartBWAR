@@ -39,7 +39,7 @@ export default function CreativeRibbon({
         <span className="ribbon-title">
           <Sparkles size={15} /> Creative DNA
         </span>
-        <Image src="/demo/material.webp" alt="" width={68} height={36} />
+        <Image src={project.references?.[0]?.src || "/demo/study-reveal.webp"} alt="" width={68} height={36} />
         <span className="ribbon-palette">
           {palette.slice(1, 5).map((c) => (
             <i key={c} style={{ background: c }} />

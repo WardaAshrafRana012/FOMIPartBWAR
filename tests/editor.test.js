@@ -34,7 +34,7 @@ test("direction comparison explains historical changes without rewriting takes",
 test("continuity checks classify selections, formats, direction and decisions", () => {
   const p = seed().projects[0];
   p.shots[0].chosen = null;
-  p.shots[1].aspect = "9:16";
+  p.shots[1].aspect = "16:9";
   p.dna.camera = "Tripod";
   const issues = continuityIssues(p);
   for (const kind of ["selection", "format", "direction", "decision"])

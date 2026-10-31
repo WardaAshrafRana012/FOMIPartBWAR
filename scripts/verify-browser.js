@@ -67,7 +67,7 @@ await check(
     await page.getByRole("tab", { name: "References" }).click();
     await page
       .getByRole("button", {
-        name: "Remove After Hours · product for this shot",
+        name: "Remove Supplied product frame for this shot",
       })
       .click();
     await save();
@@ -212,6 +212,7 @@ await check("frame capture and reference upload persist locally", async () => {
       buffer: await fs.readFile("public/demo/material.webp"),
     });
   await save();
+  await page.waitForFunction(() => JSON.parse(localStorage.getItem("fomi-continuity-v1")).projects[0].references.length === 5);
   const refs = (await state()).projects[0].references;
   assert.equal(refs.length, 5);
   assert.ok(refs.at(-1).src.startsWith("data:image/webp"));
@@ -238,7 +239,7 @@ await check(
       .getByRole("button", { name: "Play sequence", exact: true })
       .click();
     await page
-      .getByText("2 / 4 · Light through amber")
+      .getByText("2 / 4 · The crafted detail")
       .waitFor({ timeout: 12000 });
     await page.keyboard.press("Escape");
   },

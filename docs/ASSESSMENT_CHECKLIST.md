@@ -103,3 +103,5 @@ The native browser integration was unavailable/timed out in the earlier session.
 - Existing project edits and choices survive a one-time sample-library migration.
 - Verified `node scripts/verify-supplied-media.js`: decode, source metadata, playback, reload/selection, sequence advancement, mobile overflow and no page errors.
 - Supplied files have no independently verified redistribution license; they are excluded from the project fixture CC0 dedication.
+
+Matched storyboard update: four actual source frames and matching four-second portrait excerpts now populate the default selected shots and visual references. The separate second film remains an alternative. This replaces the earlier default still-animation sequence; earlier assets remain available for legacy imported packages.

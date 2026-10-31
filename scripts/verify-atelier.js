@@ -1,4 +1,4 @@
-﻿import { chromium } from '@playwright/test';
+import { chromium } from '@playwright/test';
 import assert from 'node:assert/strict';
 const browser = await chromium.launch({channel:'chrome'});
 const page = await browser.newPage({viewport:{width:1440,height:900}});

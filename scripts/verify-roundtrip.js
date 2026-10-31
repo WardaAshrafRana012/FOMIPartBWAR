@@ -1,4 +1,4 @@
-﻿import { chromium } from "@playwright/test";
+import { chromium } from "@playwright/test";
 import { seed } from "../data/seed.js";
 import { packageProject } from "../lib/project.js";
 import fs from "node:fs/promises";

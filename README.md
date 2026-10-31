@@ -109,3 +109,6 @@ Hover zoom, sequence lift, press feedback, focus treatments and dialog entrance 
 
 ### Supplied video examples
 The first shot now offers two user-supplied portrait sample films, with actual extracted posters, original audio (muted initially), full playback and individual downloads. Existing chosen takes are preserved. The simulated first-shot generation returns these prepared examples and labels them as supplied, not app-generated. The 17.1s and 10.0s source clips are longer than the shot plan; there is no implicit trimming. See docs/MEDIA.md for provenance and rights status.
+
+### Matched storyboard
+The selected sequence and its shot images now use four extracted product-film moments, with matching silent four-second portrait excerpts. Both full supplied films remain sample alternatives. The second branded product is not mixed into the default chosen sequence. Run `node scripts/create-supplied-storyboard.js` to rebuild the matched media. Alternate mock outputs may repeat an excerpt; this is disclosed in provenance.

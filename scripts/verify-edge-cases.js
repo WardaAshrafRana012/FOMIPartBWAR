@@ -1,4 +1,4 @@
-﻿import { chromium } from "@playwright/test";
+import { chromium } from "@playwright/test";
 import assert from "node:assert/strict";
 const base = process.env.BASE_URL || "http://localhost:3101",
   browser = await chromium.launch({ channel: "chrome" }),
@@ -35,7 +35,7 @@ await page.getByRole("button", { name: "Shots", exact: false }).first().click();
 await page.getByRole("dialog").locator(".shot-select").nth(1).focus();
 await page.keyboard.press("Enter");
 await page
-  .getByRole("heading", { name: "Light through amber", exact: true })
+  .getByRole("heading", { name: "The crafted detail", exact: true })
   .waitFor();
 await page.getByRole("button", { name: "Direction", exact: true }).click();
 await page
@@ -74,7 +74,7 @@ await page
 await page.getByText("Developing alternatives…").waitFor();
 await page.reload();
 await page
-  .getByRole("heading", { name: "The evening ritual", exact: true })
+  .getByRole("heading", { name: "Light and silhouette", exact: true })
   .waitFor();
 await page.waitForTimeout(4300);
 assert.equal((await state()).projects[0].shots[2].takes.length, 2);
@@ -134,7 +134,7 @@ await saved();
 assert.equal((await state()).projects[1].name, "Second campaign revised");
 await page.getByLabel("Switch project").selectOption("after-hours");
 await page
-  .getByRole("heading", { name: "The evening ritual", exact: true })
+  .getByRole("heading", { name: "Light and silhouette", exact: true })
   .waitFor();
 await page.getByRole("button", { name: "Project tools", exact: true }).click();
 await page.getByRole("button", { name: "Reset demo", exact: true }).click();
@@ -154,7 +154,7 @@ await page
 await page.getByLabel("Undo", { exact: true }).click();
 await saved();
 p = (await state()).projects[0];
-assert.equal(p.shots[2].duration, 5);
+assert.equal(p.shots[2].duration, 4);
 assert.equal(p.shots[2].takes.length, 4);
 console.log(
   "PASS undo restores direction without discarding completed generations",

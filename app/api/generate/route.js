@@ -1,5 +1,6 @@
 import { validateRequest } from "../../../lib/project.js";
 import { suppliedMedia } from "../../../lib/supplied-media.js";
+import { storyboardMedia } from "../../../lib/storyboard-media.js";
 export async function POST(request) {
   let body;
   try {
@@ -26,8 +27,9 @@ export async function POST(request) {
     takes: [0, 1].map((n) => ({
       ...(index === 0 ? { ...suppliedMedia[(hash + n) % 2], mediaOrigin: "user-supplied", actualDuration: suppliedMedia[(hash + n) % 2].duration, actualAspect: "9:16", provenance: "Supplied demo footage, not generated from the submitted request." } : {}),
       id: crypto.randomUUID(),
-      src: index === 0 ? suppliedMedia[(hash + n) % 2].src : `/demo/${fixtures[index]}${(hash + n) % 2 ? "-alt" : ""}.webm`,
-      poster: index === 0 ? suppliedMedia[(hash + n) % 2].poster : `/demo/${["invitation", "material", "ritual", "signature"][index]}.webp`,
+      ...(index !== 0 ? storyboardMedia[index] : {}),
+      src: index === 0 ? suppliedMedia[(hash + n) % 2].src : storyboardMedia[index].src,
+      poster: index === 0 ? suppliedMedia[(hash + n) % 2].poster : storyboardMedia[index].poster,
       request: body,
       createdAt: new Date().toISOString(),
       dnaSignature: body.dnaSignature,

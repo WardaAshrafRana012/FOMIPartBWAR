@@ -14,3 +14,4 @@ images and third-party software/icons retain their own rights and licenses.
 See docs/MEDIA.md for provenance, prompts and production method.
 
 EXCEPTION: supplied-01.mp4, supplied-02.mp4 and their WebP posters are user-supplied sample footage. They are not covered by the CC0 dedication above. Their underlying rights remain with their respective owners. No independent redistribution license has been verified.
+The study-reveal, study-texture, study-ritual and study-signature WebP/WebM derivatives also retain the user-supplied source rights and are not covered by CC0.
