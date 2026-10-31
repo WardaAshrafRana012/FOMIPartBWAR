@@ -17,6 +17,26 @@ export function seed() {
         "Slow deliberate push-ins. Locked horizon, shallow depth, no fast cuts.",
     },
     shots: [],
+    references: [
+      {
+        id: "ref-product",
+        name: "After Hours · product",
+        role: "Product",
+        src: "/demo/signature.webp",
+      },
+      {
+        id: "ref-light",
+        name: "Amber sidelight",
+        role: "Lighting",
+        src: "/demo/material.webp",
+      },
+      {
+        id: "ref-world",
+        name: "The evening world",
+        role: "Style",
+        src: "/demo/invitation.webp",
+      },
+    ],
   };
   const names = [
     "The invitation",
@@ -33,6 +53,7 @@ export function seed() {
   const fixtures = ["amber", "veil", "ritual", "signature"];
   p.shots = names.map((name, i) => ({
     id: `shot-${i}`,
+    fixtureIndex: i,
     name,
     description: [
       "Establish the mood",
@@ -56,8 +77,8 @@ export function seed() {
     s.takes = [0, 1].map((v) => ({
       id: `take-${i}-${v + 1}`,
       name: `Take 0${v + 1}`,
-      src: `/demo/${fixtures[(i + v) % 4]}.webm`,
-      poster: `/demo/${fixtures[(i + v) % 4]}.svg`,
+      src: `/demo/${fixtures[i]}${v ? "-alt" : ""}.webm`,
+      poster: `/demo/${["invitation", "material", "ritual", "signature"][i]}.webp`,
       createdAt: "2026-10-28T16:30:00Z",
       request: requestFor(p, s),
       dnaSignature: signature(p.dna),

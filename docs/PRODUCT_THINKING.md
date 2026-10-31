@@ -1,29 +1,39 @@
-# Fomi — Continuity / Product thinking
+﻿# Fomi — Continuity / Product thinking
 
-**Category: Video Generation Workspace.** This is a frontend assessment with original motion fixtures, not an AI generation service. No user research or production validation was conducted.
+**Part B category: Video Generation Workspace.** An interactive frontend assessment with a real mock route handler and prepared cinematic fixtures. No interviews, usability study or measured product outcomes are claimed.
 
-## Problem and user
+## What problem were you solving?
 
-Generating a clip is easier than maintaining a creative intention across a film. A returning professional creative director needs to remember what each shot contributes, compare alternatives, and recover why a version was chosen. The starting point is an existing fragrance campaign, because resuming work exposes those relationships better than an empty prompt box.
+Generating an individual clip is only one part of making a film. A director returning to a campaign must recover its intention, understand how shots relate, compare alternatives and remember why one version was chosen. Continuity keeps that reasoning attached to the sequence instead of leaving it scattered across prompts and downloads.
+
+## Who is the user?
+
+A professional creative director working on a short fragrance campaign over several sessions. They already have a brief, planned shots and usable takes. The seeded AFTER HOURS campaign opens in that realistic state; it does not start with an empty dashboard.
 
 ## Three most important UX decisions
 
-1. **A shared direction with explicit exceptions.** Creative DNA establishes five project rules. Blank per-shot overrides inherit them; entered overrides replace only that rule. Effective direction exposes the actual merged request. Every take retains its submitted snapshot and shows “Earlier DNA” when the project DNA differs. This is transparent provenance, not a promise about model consistency.
-2. **Previewing and choosing are separate actions.** Clicking a take changes the stage; “Choose this take” changes the sequence. New generations append alternatives without displacing an editorial decision. Comparison exposes saved requests and a short shot-level decision note preserves the reasoning. The trade-off is an extra intentional click before committing a take.
-3. **The sequence remains in view.** The storyboard and sequence use the same shot order. Keyboard move buttons avoid requiring drag precision. The large stage receives the most space, while overrides and technical details are disclosed on demand. On phones the storyboard becomes a compact collapsible strip and direction moves below the stage; the desktop arrangement is not squeezed into miniature columns.
+1. **A visible creative thread, with explicit exceptions.** The visual Creative DNA board combines a campaign mood reference, a palette and five editable rules. Shots inherit defaults and references; explicit overrides replace individual fields or reference selections. Effective direction shows the exact request. Each take retains its original prompt/rules/references, while a readable Previous/Current comparison identifies changed direction. This makes provenance inspectable without claiming the interface guarantees model consistency.
 
-## Deliberate omissions
+2. **Separate exploration from commitment, then preserve the reason.** Previewing changes the stage; choosing changes the sequence. Generation appends alternatives without displacing a selected take. Comparison offers shared playback starts, settings differences and take-specific notes. Choosing a version brings its note into the sequence. History preserves alternatives and recent events. The extra commitment step is intentional protection against accidental editorial changes.
 
-No auth, payments, real models, cloud collaboration, database or renderer: none helps assess the central decision workflow. No timeline trimming, transitions or audio: consecutive clip review tests the story without implying a video editor. No package import or undo: both need stronger schema migration/history UX than the assessment warrants. Destructive actions instead require confirmation. Four original reusable fixture studies keep the project small, self-contained and legally clear; they sacrifice photographic realism and truly varied results.
+3. **Keep the film in view while adapting the working surface.** Desktop has one storyboard, a large stage, contextual Direction/References/History inspector and a docked sequence. Advanced settings are disclosed on demand. Mobile uses Preview/Direction/Sequence modes with a shot-picker sheet, rather than squeezing three desktop columns onto a phone. Project tools keeps import, undo/redo, brief and continuity review reachable at every width. Metadata checks navigate directly to missing selections, changed direction or differing requested formats. They support human judgment rather than inventing an AI consistency score.
 
-## Inspiration and critique
+## Which features did you leave out, and why?
 
-Premiere Pro and DaVinci Resolve informed the distinction between reviewing source material and committing a sequence. Their strength is keeping editorial context close to media; the opportunity here is exposing the creative rationale without requiring a full editing timeline. Figma's shared styles inspired project defaults with local exceptions; this implementation adds a visible effective request and historical snapshot because generation outputs cannot be updated like live component instances. These are conceptual influences, not copied interface layouts or claims of feature parity. A charcoal/olive editorial composition, shot-based navigation and explicit decision notes give Continuity its own emphasis.
+No authentication, payments, cloud database, collaboration server or real model API: these add infrastructure rather than clarify the assessment workflow. No trimming, audio mixing, rendered MP4 or full editing timeline: sequential clip review is sufficient to assess story assembly without pretending to be an NLE. Prepared still-based camera studies keep the demo local and small but sacrifice actual subject motion and varied model output. Undo is bounded session history, not a permanent revision system. Export/import provides portability without claiming cloud sync.
 
-## Another month
+## Which products inspired the thinking? What would you improve?
 
-First, observe creative directors resuming real multi-shot work and test whether DNA fields and notes reduce reconstruction effort. Then add take-specific decision history, package import with migration, robust IndexedDB storage with conflict handling, and usable undo. Test screen readers and touch devices with actual users. If real model integration were later authorized, measure controllability empirically; never infer consistency from the existence of a shared prompt. Better original footage and proxy management would improve review realism before adding configuration complexity.
+Google Flow's references, saved frames and scene assembly informed the connection between inputs and output. Krea's output comparison and integrated editing informed the immediate transition from generation to review. Runway's distinction between temporary and saved references reinforced the need to state persistence and scope. CapCut's documented export gating and public failure reports motivated early export clarity; Flow failure reports motivated actionable state feedback. These are desk-research signals, not proof that every user has the same issue or that a competitor lacks similar solutions.
 
-## The differentiating workflow
+Premiere Pro and DaVinci Resolve inspired deliberate source review versus sequence commitment. Figma's shared styles informed defaults with explicit local exceptions. Meta Edits informed phone-specific interaction rather than a miniature desktop. MiniMax/Hailuo, Kling and Firefly reinforced the value of reference roles and readable camera/frame controls. Kimi is an adjacent planning reference rather than a directly equivalent video editor.
 
-**Brief → shared Creative DNA → inherited/overridden shot request → frozen take provenance → deliberate selection with a reason → ordered review → portable project package.** The workspace preserves how a sequence was decided, not just the clips it contains. Its effect is inspectable in submitted and exported metadata today.
+What I would improve across the workflow is the visibility of the actual submitted request, a selected take's rationale, reference lifetime and export consequences. The implemented response is explicit snapshots, take-specific notes, local-storage disclosure, request differences and a JSON-package export that says what it contains. It is not a claim to outperform those products. Sources and evidence distinctions are in `COMPETITOR_UX_REVIEW.md`.
+
+## What would you improve with another month?
+
+Observe directors resuming genuine projects and test whether they can recover intention and decisions without help. Measure task completion and errors before claiming an improvement. Test screen readers, touch devices, zoom and real Safari/iOS. Move reference/media storage to IndexedDB with migration, quota management and cross-tab conflict handling. Develop more robust revision history and recoverable deletion across sessions, then improve the realism and variety of the prepared campaign media. Real inference, if separately authorized, would require empirical controllability tests and honest per-model capability handling.
+
+## What single workflow differentiates it?
+
+**Brief → visual DNA and references → explicit shot request → frozen take provenance → comparison → selection with a reason → continuity review → portable, restorable project package.** The interface preserves the relationship between an intention and an editorial decision, not only a list of clips.

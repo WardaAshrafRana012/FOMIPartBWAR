@@ -1,61 +1,98 @@
-# Assessment checklist
+﻿# Assessment checklist — redesigned Continuity
 
-Verification date: 31 October 2026 (Asia/Karachi). This project is isolated in `fomi-continuity`; no existing AI Video Studio source was accessed or changed.
+Verified 31 October 2026, Asia/Karachi. Assessment project: `fomi-continuity`. Existing AI Video Studio source remains untouched.
+
+## Scope
+
+The supplied brief selects **Video Generation Workspace** and explicitly requests a frontend demonstration with a real local mocked API, deterministic fixture footage and no model/API-key/GPU dependency. Supporting reference images are not a standalone image generator. This interpretation has not been checked against a separate employer PDF or URL; see `ASSESSMENT_SCOPE.md`.
 
 ## Assessment mapping
 
-| Area                      | Implemented evidence                                                                                                                                                  | Trade-off / limitation                                                                                |
-| ------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------- |
-| Product thinking          | Existing four-shot campaign, brief, Creative DNA, merged direction, saved provenance, deliberate choice and decision notes                                            | Concept reasoning, not user research; no evidence of actual model consistency                         |
-| Frontend engineering      | Next.js App Router; JavaScript; real validated POST handler; independent cancellable jobs; JSON download; versioned local persistence and visible save failures       | Simulated jobs run in browser; no server queue or durable server state                                |
-| Code architecture         | Separate seed, pure state/request/export utilities, persistence hook, generation hook, storyboard, direction panel, media, review and dialog components               | Workspace owns composition and supporting dialog content; no external state framework                 |
-| UX and interaction        | Resume, project create/rename/switch, shot add/duplicate/delete/reorder, overrides, compare, choose, notes, ordered review and export                                 | No undo or import; destructive actions require confirmation; notes are per shot                       |
-| Visual polish             | Warm charcoal/olive workspace, original amber motion studies, large stage, editorial type hierarchy, responsive storyboard, focus/hover/disabled/loading/error states | Stylized vector motion fixtures rather than photographic campaign footage                             |
-| Originality               | Direction inheritance made inspectable, historical snapshots, separate preview/sequence choices, decision rationale                                                   | Shared defaults and editorial sequence are established patterns combined for this particular workflow |
-| Product-thinking document | `PRODUCT_THINKING.md` answers problem, user, three UX decisions, omissions, influences, critiques, next month and differentiator                                      | No invented research, outcomes or model capability claims                                             |
-| Submission                | Three-page rendered and visually inspected PDF; verified desktop/mobile screenshots; explicit pending link fields                                                     | GitHub publication and Vercel deployment require the intended account                                 |
+| Area                      | Implementation                                                                                                                                                                | Limit / trade-off                                                                          |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------ |
+| Product thinking          | Returning director, realistic four-shot campaign, visible intention-to-decision workflow                                                                                      | Desk research and design hypotheses, not a user study                                      |
+| Frontend engineering      | Next.js App Router, JavaScript, validated POST, cancellable independent jobs, storage recovery, undo/redo, JSON import/export                                                 | Client simulation, no real model or server queue                                           |
+| Architecture              | Separate request/editor transformations, persistence/generation hooks, storyboard, inspector, references, custom media controls, comparison, sequence, take strip and dialogs | Global CSS; no additional state framework                                                  |
+| UX / interaction          | Exact inherited direction, references by role, frame capture, frozen requests, Previous/Current changes, take-specific notes, continuity navigation                           | Metadata checks do not analyze footage                                                     |
+| Visual polish             | Original cinematic stills, eight camera studies, restrained charcoal/olive palette, stage-led desktop, docked sequence, phone work modes                                      | Camera movement is prepared canvas pan/scale, not real subject animation                   |
+| Originality               | Explicit relationship between brief, shared rules, submitted take provenance, choice and reason                                                                               | Informed by established patterns; not a claim of feature uniqueness across all competitors |
+| Product-thinking document | Specific implemented decisions, omissions, source influences, critique, next month and differentiator                                                                         | No invented validation results                                                             |
+| Deliverables              | Runnable source, lockfile, README, scope/research/media notes, screenshots, PDF and source ZIP                                                                                | Live Vercel/GitHub links await intended accounts                                           |
 
-## Passed verification
+## Automated verification
 
-`npm test`: **6/6 tests pass**. Covers independent duplication identities, inheritance and frozen historical snapshots, ordered sequence export, malformed/versioned data recovery, request validation, and current notes/brief in exports.
+### State / transformation tests
 
-`node scripts/verify-browser.js`: **passes against the production server in isolated headless Google Chrome**.
+`npm test`: **13 / 13 pass**.
 
-- Seeded project, eight initial takes, local clip playback.
-- Prompt and Creative DNA edits survive reload; earlier-DNA indication appears.
-- Add, duplicate, move and confirmed delete update the shot list.
-- Invalid generation input is rejected, queued/generating/completed stages occur, and successful results preserve chosen takes.
-- Cancel, explicit failure and retry work.
-- Two-take comparison, chosen version and decision-note persistence work.
-- Dialog focus stays inside, Escape closes, and focus returns to the opener.
-- Sequence playback advances to the next selected clip.
-- Downloaded JSON contains current brief/DNA/shot data, choices and notes; missing-selection explanation appears.
-- Corrupt local data recovers with a visible notice.
-- Route returns 422 for invalid fields and 400 for malformed JSON.
-- No uncaught page errors or unexpected console errors in the final run. Expected 422 validation is deliberately excluded from console-error failure checks.
-- No document-level horizontal overflow at 360, 390, 430, 768, 1024, 1280, 1440 or 1920 pixels. Screenshots saved in `docs/screenshots/`.
+- Reference inheritance, explicit none and independent snapshots.
+- Historical direction differences without rewriting old takes.
+- Metadata review for selections, formats, direction changes and decisions.
+- Undo retains newly completed takes and restores editorial choices.
+- Import produces independent project/shot/take identities and rejects unsafe media.
+- Malformed reference selections, note data, storage JSON and unsupported schemas recover safely.
+- An unfinished queued event is marked interrupted once on reopening.
+- Duplicated shot/take identities are independent.
+- Shot ordering drives sequence/export ordering.
+- Prompt, ratio, timing and direction validation.
+- Current brief, settings and decision notes are present in export.
 
-`node scripts/verify-edge-cases.js`: **passes against the production server**. Checks mobile brief access, keyboard selection, active-shot restoration, generation targeting and override snapshots while another shot is reviewed, reload cancellation, project creation/switching/renaming, reset cancellation and storage-failure feedback.
+### Main Chrome workflow
 
-`npm run build`: **passes**, producing the page, icon and dynamic `/api/generate` route. Production server runs successfully at `http://localhost:3100`.
+`node scripts/verify-browser.js`: **passes against the production server** using an isolated disposable Chrome profile.
 
-Dependency install after upgrading to patched Next.js 16.4.3 reports **0 vulnerabilities**. This is an npm advisory result, not a security audit or a performance score.
+- Seeded four-shot project, reference library, playable local fixture and initially visible sequence dock.
+- Prompt, Creative DNA, camera override and explicit reference selections survive reload.
+- Previous/Current DNA differences explain earlier takes.
+- Add, rename, duplicate, move, delete, undo and redo shot changes.
+- Invalid generation fails validation; queued/generating/completed states occur.
+- Submitted references/overrides are recorded, and results remain attached to the original shot while another shot is reviewed.
+- New results do not replace a chosen take.
+- Cancellation, deliberate failure and successful retry.
+- Both comparison clips play; pause, take-specific note and sequence choice work.
+- Frame capture and local reference upload persist.
+- Dialog Tab wrapping, Escape and opener focus restoration.
+- Sequential playback advances to the next selected shot.
+- Continuity review links to the unresolved shot.
+- Downloaded JSON includes current shots, references, notes and choices.
+- Invalid import is safe; valid import creates a separate project with independent identities.
+- Route returns 400 for malformed JSON and 422 for invalid fields.
+- **No uncaught page errors or unexpected console errors in the final run.** The intentional 422 validation response is excluded from console-error assertions.
 
-## Visual inspection
+### Responsive / recovery Chrome checks
 
-Desktop and mobile screenshots were opened and inspected directly. The desktop stage remains prominent; the mobile layout stacks direction beneath media and contains shot/take/sequence scrolling within their strips. The creative brief and project rename remain accessible on mobile. All three final PDF pages were rendered to PNG with PyMuPDF and inspected for legibility, alignment, clipping and page breaks.
+`node scripts/verify-edge-cases.js`: **passes against the production server**.
 
-The native desktop-browser handoff timed out. This did not prevent isolated Playwright Chrome verification or screenshots. No personal browser profile or existing AI Video Studio tab was modified.
+- No document-level horizontal overflow at **360, 390, 430, 768, 1024, 1280, 1440 and 1920 px**.
+- Mobile shot-picker keyboard selection, work-mode navigation, brief, generation, references and explicit camera override.
+- Reviewing a different shot while generation runs preserves destination and submitted settings.
+- Reload retains selected shot and cancels unfinished generation without adding takes.
+- Mobile project tools expose undo/redo, create, rename, switch and reset confirmation.
+- Undo after completion restores duration while retaining newly finished alternatives.
+- Confirmed reset restores the seed and clears job state.
+- Invalid local data recovers with a notice.
+- Save failure remains visible on mobile.
+- No uncaught errors in the edge-case run.
 
-## Known limitations and unverified items
+### Build and running server
 
-- Four original deterministic motion fixtures repeat across requests. Actual clip pixels, timing and aspect do not change with metadata. UI and documentation disclose this.
-- Browser-local persistence only; 500 ms debounce and pagehide flush. A sudden crash can lose recent edits. No cross-tab conflict resolution, import, migration beyond safe version recovery, or cloud backup.
-- Reload cancels unfinished simulations without adding incomplete takes. Jobs do not resume on the server.
-- “Earlier DNA” compares saved project DNA strings, not video content or semantic consistency.
-- Sequence playback uses selected clips consecutively with browser handoffs; no frame-accurate editing, seamlessness or MP4 rendering.
-- JSON includes fixture paths and provenance, not embedded video files. Individual fixture downloads are available in Take details.
-- Keyboard forms, selection, native dialog behavior and move controls are implemented; no screen-reader user study or exhaustive assistive-technology audit was performed.
-- No real iOS/Safari/Firefox, physical tablet/touch, zoom/OS text scaling, high contrast, or slow-device testing. WebM failure has an explicit fallback.
-- Contrast and focus were visually reviewed; no formal WCAG conformance or Lighthouse performance claim.
-- No live deployment or GitHub remote exists. Create/push the intended repository, import into the intended Vercel account, check the deployed URL, update `submission-links.json`, and regenerate the PDF. The draft contains explicit placeholders.
+`npm run build`: **passes**. Routes: `/`, `/icon.svg`, `/api/generate` and standard not-found page. Production server verified locally at **http://localhost:3101**. Next.js 16.4.3; JavaScript source only. Earlier dependency installation reported zero npm advisories; no new dependencies were added for the redesign. This is not a security audit or performance score.
+
+## Visual QA
+
+Actual browser screenshots were opened and inspected. The main stage uses original cinematic imagery; one storyboard and a contextual inspector replace the redundant outer rail. The sequence is docked within the desktop viewport. Mobile has focused Preview / Direction / Sequence surfaces and a shot-picker sheet. Status notices occupy layout space instead of covering controls. Reference content can scroll clear of the generation footer.
+
+Screenshots are in `docs/screenshots/`: `studio-desktop`, `studio-comparison`, `studio-direction-diff`, `studio-references`, mobile views and all target widths. The refreshed submission PDF includes current verified screenshots. Its rendered pages are visually inspected before delivery.
+
+The native browser integration was unavailable/timed out in the earlier session. Verification uses isolated Playwright Chrome and actual captured screenshots; no personal Chrome profile or existing app tab is modified.
+
+## Known limitations / unverified checks
+
+- Prepared AI-created stills and canvas camera studies repeat. Settings/references affect stored requests, not fixture pixels. Actual clips remain landscape and approximately five seconds.
+- Reference thumbnails and request snapshots consume localStorage. Quota failure is surfaced. No IndexedDB, cloud backup or cross-tab merge; last writer wins. Crash can lose edits inside the 500 ms debounce window.
+- Undo is bounded in-memory session history, not persistent revision history. Creation/import/reset are outside undo. Completed takes are retained when restoring editorial snapshots.
+- Imported media is allowlisted to bundled fixtures; arbitrary external videos are not supported. Historical reference identities remain source-request provenance.
+- Shared comparison starts are approximate browser playback. Sequence has no frame-accurate cuts, seamlessness, audio mix, trimming or MP4 rendering. JSON contains fixture paths rather than embedded videos; individual clip downloads are available.
+- Keyboard workflows and focus are tested, but there is no screen-reader user study or full assistive-technology/WCAG audit.
+- No real Safari/iOS/Firefox, physical touch devices, OS text scaling, high-contrast mode or measured slow-device performance testing. Media errors have a fallback. No Lighthouse score is claimed.
+- No GitHub remote or Vercel deployment is configured. Publish to the intended accounts, verify the deployed URL, update `submission-links.json` and regenerate the PDF. Draft links remain explicitly pending.

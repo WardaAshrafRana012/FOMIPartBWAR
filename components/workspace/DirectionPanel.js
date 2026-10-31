@@ -1,12 +1,22 @@
-"use client";
-import { SlidersHorizontal, Sparkles } from "lucide-react";
+﻿"use client";
+import {
+  Sparkles,
+  SlidersHorizontal,
+  ArrowUpRight,
+  Camera,
+  Check,
+  Clock3,
+} from "lucide-react";
 import { rules, labels, effective, requestFor } from "../../lib/project";
+import References from "./References";
+import { DirectionDiff } from "./DirectionDiff";
 export default function DirectionPanel({
   shot,
   project,
   tab,
   setTab,
   editShot,
+  update,
   advanced,
   setAdvanced,
   fail,
@@ -15,61 +25,65 @@ export default function DirectionPanel({
   busy,
   start,
   cancel,
+  setModal,
 }) {
   return (
     <section className="direction-panel" aria-label="Shot direction">
-      <div className="panel-tabs">
-        <button
-          className={tab === "direction" ? "active" : ""}
-          onClick={() => setTab("direction")}
-        >
-          Direction
-        </button>
-        <button
-          className={tab === "inherited" ? "active" : ""}
-          onClick={() => setTab("inherited")}
-        >
-          Effective direction
-        </button>
+      <div className="panel-tabs" role="tablist" aria-label="Shot inspector">
+        {["direction", "references", "history"].map((t) => (
+          <button
+            key={t}
+            role="tab"
+            aria-selected={tab === t}
+            className={tab === t ? "active" : ""}
+            onClick={() => setTab(t)}
+          >
+            {t.charAt(0).toUpperCase() + t.slice(1)}
+            {t === "references" && (
+              <span>{project.references?.length || 0}</span>
+            )}
+          </button>
+        ))}
       </div>
-      {tab === "direction" ? (
-        <>
+      <div
+        className="inspector-scroll"
+        role="tabpanel"
+        aria-label={`${tab} panel`}
+      >
+        {tab === "direction" && (
           <div className="direction-body">
-            <label className="field">
-              SHOT NAME
-              <input
-                value={shot.name}
-                maxLength={100}
-                onChange={(e) => editShot({ name: e.target.value })}
-              />
-            </label>
-            <label className="field">
-              STORY BEAT
-              <input
-                value={shot.description}
-                maxLength={180}
-                onChange={(e) => editShot({ description: e.target.value })}
-              />
-            </label>
+            <div className="inspector-intro">
+              <span className="eyebrow">THE IDEA BEHIND THE FRAME</span>
+              <h3>Direct this moment.</h3>
+            </div>
             <div className="field-label">
-              <label htmlFor="prompt">SHOT DIRECTION</label>
-              <span>Your creative intent</span>
+              <label htmlFor="prompt">Shot direction</label>
+              <span>{shot.prompt.length}/3000</span>
             </div>
             <textarea
-              aria-describedby="generation-status"
-              aria-invalid={job?.status === "failed"}
               id="prompt"
+              aria-describedby={job ? "generation-status" : "direction-help"}
+              aria-invalid={job?.status === "failed"}
               value={shot.prompt}
               maxLength={3000}
               onChange={(e) => editShot({ prompt: e.target.value })}
               placeholder="Describe the moment, movement, and composition…"
             />
-            <p className="inherit-note">
-              <span>✳</span> Inheriting your project’s Creative DNA
-            </p>
+            <button className="inherit-note" onClick={() => setModal("dna")}>
+              <span>✳</span>
+              <span>
+                <strong>Creative DNA is connected</strong>
+                <small>
+                  {rules.filter((k) => shot.overrides[k]?.trim()).length
+                    ? `${rules.filter((k) => shot.overrides[k]?.trim()).length} shot override(s)`
+                    : "Inheriting all 5 project rules"}
+                </small>
+              </span>
+              <ArrowUpRight size={13} />
+            </button>
             <div className="control-pair">
               <label className="field">
-                DURATION
+                Duration
                 <select
                   value={shot.duration}
                   onChange={(e) =>
@@ -84,7 +98,7 @@ export default function DirectionPanel({
                 </select>
               </label>
               <label className="field">
-                ASPECT RATIO
+                Aspect ratio
                 <select
                   value={shot.aspect}
                   onChange={(e) => editShot({ aspect: e.target.value })}
@@ -95,6 +109,30 @@ export default function DirectionPanel({
                 </select>
               </label>
             </div>
+            <p id="direction-help" className="setting-hint">
+              Requested settings are saved metadata. Sample clips retain their
+              original format.
+            </p>
+            <details className="effective-details">
+              <summary>
+                Effective direction <span>View request</span>
+              </summary>
+              <div className="effective-summary">
+                <p>
+                  Your prompt and these rules form the next generation request.
+                  Existing takes keep their snapshots.
+                </p>
+                {rules.map((k) => (
+                  <div key={k}>
+                    <span className="eyebrow">
+                      {labels[k]}
+                      <b>{shot.overrides[k] ? "OVERRIDE" : "INHERITED"}</b>
+                    </span>
+                    <p>{effective(project, shot)[k]}</p>
+                  </div>
+                ))}
+              </div>
+            </details>
             <button
               className="advanced-toggle"
               aria-expanded={advanced}
@@ -106,13 +144,13 @@ export default function DirectionPanel({
             {advanced && (
               <div className="advanced">
                 {rules.map((k) => (
-                  <label className="field" key={k}>
-                    {labels[k]}{" "}
+                  <label key={k} className="field">
+                    {labels[k]}
                     <span>{shot.overrides[k] ? "OVERRIDE" : "INHERITED"}</span>
                     <input
-                      placeholder={project.dna[k]}
-                      value={shot.overrides[k] || ""}
                       maxLength={1000}
+                      value={shot.overrides[k] || ""}
+                      placeholder={project.dna[k]}
                       onChange={(e) =>
                         editShot({
                           overrides: { ...shot.overrides, [k]: e.target.value },
@@ -121,26 +159,12 @@ export default function DirectionPanel({
                     />
                   </label>
                 ))}
-                <label className="field">
-                  VISUAL REFERENCE
-                  <select
-                    value={shot.reference || ""}
-                    onChange={(e) => editShot({ reference: e.target.value })}
-                  >
-                    <option value="">None</option>
-                    {project.shots.flatMap((s) =>
-                      s.takes.map((t) => (
-                        <option key={`${s.id}-${t.id}`} value={t.id}>
-                          {s.name} / {t.name}
-                        </option>
-                      )),
-                    )}
-                  </select>
-                </label>
-                <p className="muted">
-                  Reference is saved metadata. It does not alter fixture
-                  footage.
-                </p>
+                <button
+                  className="text-button"
+                  onClick={() => setTab("references")}
+                >
+                  Choose visual references <ArrowUpRight size={13} />
+                </button>
                 <label className="check-field">
                   <input
                     type="checkbox"
@@ -151,28 +175,109 @@ export default function DirectionPanel({
                 </label>
               </div>
             )}
+            <details className="shot-details">
+              <summary>Edit shot details</summary>
+              <label className="field">
+                SHOT NAME
+                <input
+                  maxLength={100}
+                  value={shot.name}
+                  onChange={(e) => editShot({ name: e.target.value })}
+                />
+              </label>
+              <label className="field">
+                STORY BEAT
+                <input
+                  maxLength={180}
+                  value={shot.description}
+                  onChange={(e) => editShot({ description: e.target.value })}
+                />
+              </label>
+            </details>
           </div>
-        </>
-      ) : (
-        <div className="effective-summary">
-          <p>
-            The exact direction sent with the next request. Existing takes keep
-            their original snapshot.
-          </p>
-          <blockquote>
-            {shot.prompt || "Add shot direction to begin."}
-          </blockquote>
-          {rules.map((k) => (
-            <div key={k}>
-              <span className="eyebrow">
-                {labels[k]}{" "}
-                <b>{shot.overrides[k] ? "OVERRIDE" : "INHERITED"}</b>
-              </span>
-              <p>{effective(project, shot)[k]}</p>
+        )}
+        {tab === "references" && (
+          <References
+            project={project}
+            shot={shot}
+            editShot={editShot}
+            update={update}
+          />
+        )}
+        {tab === "history" && (
+          <div className="history-panel">
+            <div className="inspector-intro">
+              <span className="eyebrow">EVERY TAKE HAS A STORY</span>
+              <h3>Keep your reasoning.</h3>
+              <p>
+                Saved requests and editorial decisions. No analysis of the
+                footage.
+              </p>
             </div>
-          ))}
-        </div>
-      )}
+            {[...shot.takes].reverse().map((t) => (
+              <details key={t.id} className="history-take">
+                <summary>
+                  <span>
+                    <strong>{t.name}</strong>
+                    <small>
+                      {new Date(t.createdAt).toLocaleDateString("en-GB", {
+                        day: "numeric",
+                        month: "short",
+                      })}{" "}
+                      · {t.request.duration}s
+                    </small>
+                  </span>
+                  {shot.chosen === t.id ? (
+                    <span className="history-chosen">
+                      <Check size={12} /> Chosen
+                    </span>
+                  ) : (
+                    <Clock3 size={14} />
+                  )}
+                </summary>
+                <p className="history-prompt">{t.request.prompt}</p>
+                {t.note && <blockquote>{t.note}</blockquote>}
+                <DirectionDiff project={project} take={t} />
+                <button
+                  onClick={() =>
+                    editShot({ preview: t.id }, { history: false })
+                  }
+                >
+                  Preview this take
+                </button>
+                <details className="raw-request">
+                  <summary>Full submitted request</summary>
+                  <pre>{JSON.stringify(t.request, null, 2)}</pre>
+                </details>
+              </details>
+            ))}
+            {!shot.takes.length && (
+              <p className="muted">
+                Your first generation will begin this shot’s history.
+              </p>
+            )}
+            <h4 className="activity-title">RECENT ACTIVITY</h4>
+            {(project.activity || [])
+              .filter((a) => a.shotId === shot.id)
+              .slice(-10)
+              .reverse()
+              .map((a) => (
+                <div className="activity-item" key={a.id}>
+                  <span className="save-dot" />
+                  <p>
+                    {a.message}
+                    <small>
+                      {new Date(a.at).toLocaleTimeString("en-GB", {
+                        hour: "2-digit",
+                        minute: "2-digit",
+                      })}
+                    </small>
+                  </p>
+                </div>
+              ))}
+          </div>
+        )}
+      </div>
       <div className="generate-footer">
         {job && (
           <div
@@ -180,15 +285,19 @@ export default function DirectionPanel({
             className={`job ${job.status}`}
             role="status"
           >
-            <strong>
-              {job.status === "generating"
-                ? "Developing alternatives…"
-                : job.status === "queued"
-                  ? "Request queued…"
-                  : job.status.charAt(0).toUpperCase() + job.status.slice(1)}
-            </strong>
+            <div className="job-heading">
+              <span className={busy ? "spinner" : ""} />
+              <strong>
+                {job.status === "generating"
+                  ? "Developing alternatives…"
+                  : job.status === "queued"
+                    ? "Request queued…"
+                    : job.status.charAt(0).toUpperCase() + job.status.slice(1)}
+              </strong>
+            </div>
             <small>
-              {job.message || "You can keep working on other shots."}
+              {job.message ||
+                "Keep working. This request stays with this shot."}
             </small>
           </div>
         )}
@@ -204,13 +313,18 @@ export default function DirectionPanel({
             }
           >
             <Sparkles size={16} />
-            {job?.status === "failed" || job?.status === "cancelled"
+            {["failed", "cancelled"].includes(job?.status)
               ? "Retry · 2 alternatives"
               : "Generate 2 alternatives"}
-            <span>↗</span>
+            <ArrowUpRight size={16} />
           </button>
         )}
-        <p>Curated local fixtures · no credits or API keys</p>
+        <p>
+          <span className="live-dot" /> Demo generation · no credits required
+        </p>
+        <small className="reload-hint">
+          Reload cancels unfinished simulations.
+        </small>
       </div>
     </section>
   );

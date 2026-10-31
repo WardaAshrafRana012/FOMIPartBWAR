@@ -1,6 +1,8 @@
 import PDFDocument from "pdfkit";
 import fs from "node:fs";
 const links = JSON.parse(fs.readFileSync("docs/submission-links.json", "utf8"));
+for (const key of Object.keys(links))
+  links[key] = links[key].replace(/[\u2013\u2014]/g, "-");
 fs.mkdirSync("output/pdf", { recursive: true });
 const doc = new PDFDocument({
   size: "A4",
@@ -82,7 +84,7 @@ para(
   "A daily workspace for the creative director returning to a film in progress.",
   16,
 );
-const screenshot = "docs/screenshots/desktop.png";
+const screenshot = "docs/screenshots/studio-desktop.png";
 if (fs.existsSync(screenshot)) {
   doc.image(screenshot, 44, doc.y, { fit: [507, 374], align: "center" });
   doc.y += 387;
@@ -93,7 +95,7 @@ section(
 );
 label("SUBMISSION LINKS");
 para(`Vercel demo: ${links.vercel}\nGitHub repository: ${links.github}`, 10);
-para("Local preview: http://localhost:3100 | No API keys required.", 9);
+para("Local preview: http://localhost:3101 | No API keys required.", 9);
 newPage("PRODUCT THINKING");
 heading("Keep the intention visible.");
 section(
@@ -102,15 +104,15 @@ section(
 );
 section(
   "01 / Shared direction, explicit exceptions",
-  "Five Creative DNA rules flow into every shot. Per-shot overrides are explicit and the effective request is readable. Each take preserves its submitted snapshot; an Earlier DNA label signals a changed project direction, not an AI analysis.",
+  "Visual DNA and named references flow into each shot. Overrides are explicit. Every take preserves its submitted snapshot; Previous/Current differences explain changed direction without claiming footage analysis.",
 );
 section(
   "02 / Look first. Choose deliberately.",
-  "Preview and sequence selection are separate. New alternatives never replace the chosen version. Side-by-side comparison exposes prompt and settings; a short shot-level decision note keeps the editorial reason nearby.",
+  "Preview and sequence selection are separate. New alternatives never replace the chosen version. Comparison has shared playback controls, request differences and take-specific decision notes. History retains the editorial context.",
 );
 section(
   "03 / Keep the sequence close",
-  "The storyboard and sequence share one order, including accessible move controls. The stage dominates. Advanced overrides are disclosed on demand; mobile stacks the work with a collapsible storyboard strip.",
+  "One storyboard, a cinematic stage, a contextual inspector and a docked sequence keep the film close. Mobile uses Preview / Direction / Sequence modes and a shot-picker sheet. Project tools keeps every action accessible.",
 );
 section(
   "One differentiating workflow",
@@ -118,15 +120,15 @@ section(
 );
 section(
   "Inspiration and trade-offs",
-  "Premiere Pro and DaVinci Resolve inspired the distinction between source review and sequence commitment. Figma shared styles inspired defaults with exceptions. Continuity makes creative rationale explicit without adopting a full timeline or copying those interfaces.",
+  "Flow references, Krea comparison, Runway reference persistence and Meta Edits mobile interaction informed the research. CapCut export restrictions informed early clarity. Continuity preserves creative rationale in its own stage-first layout. No user research is claimed.",
 );
 section(
   "What was left out",
-  "Real AI, authentication, cloud collaboration, rendering, trimming and audio would distract from assessing the central workflow. Four original reusable motion fixtures keep the demo small and self-contained. No research or production validation is claimed.",
+  "Real inference, authentication, collaboration servers, trimming, audio mixing and MP4 rendering are outside the assessment. Eight camera studies from four original AI-created stills keep the demonstration local and self-contained.",
 );
 section(
   "With another month",
-  "Observe directors resuming real work, test the DNA vocabulary, and add take-specific history, import/migration, undo and more robust storage. Validate accessibility on real assistive technologies and touch devices before adding configuration complexity.",
+  "Observe directors resuming real projects and test task completion before claiming UX improvement. Validate screen readers and real touch devices. Add IndexedDB quota/conflict handling, more durable revisions and richer fixture media.",
 );
 newPage("IMPLEMENTATION & REVIEW");
 heading("A working frontend.");
@@ -134,7 +136,7 @@ para(
   "Next.js App Router / JavaScript / CSS / local route handler / browser-local persistence",
   11,
 );
-const mobile = "docs/screenshots/width-390.png";
+const mobile = "docs/screenshots/studio-mobile.png";
 if (fs.existsSync(mobile)) {
   doc.image(mobile, 391, 156, { fit: [160, 450], align: "right" });
 }
@@ -150,7 +152,7 @@ function narrow(title, text) {
 }
 narrow(
   "The complete path",
-  "Resume the seeded project, edit direction, generate two fixture alternatives, follow stages, compare and choose, add a note, review clips consecutively, and download the current project JSON.",
+  "Resume a campaign, edit DNA and references, direct a shot, generate prepared alternatives, compare and choose with a note, review continuity and play the sequence. Export/import a validated project package.",
 );
 narrow(
   "Honest simulation",
@@ -158,16 +160,41 @@ narrow(
 );
 narrow(
   "Verification evidence",
-  "Six state tests, the complete Chrome workflow and additional persistence/project checks pass against the production server. The production build passes. Responsive checks cover 360 through 1920 pixels with no page overflow. No uncaught page or unexpected console errors occurred in the final workflow run.",
+  "Thirteen state tests and the production build pass. Chrome checks cover generation, comparison, references, frame capture, history, undo/redo, package import/export and recovery. Responsive checks span 360 through 1920 pixels. See the checklist for final evidence.",
 );
 narrow(
   "Known boundaries",
-  "All clips are original stylized motion studies, approximately five seconds. Entered timing and aspect ratio are planned request metadata. Sequence review is not frame-accurate. Export is JSON, not a rendered MP4.",
+  "Fixtures are simple camera-motion studies of original AI-created stills, not live model output. Timing, ratio and references are request metadata. Playback is approximate; export is JSON, not a rendered MP4. No cloud backup is claimed.",
 );
 doc.y = Math.max(doc.y, 650);
 section(
   "Publishing action remaining",
   "Create and push to the intended GitHub repository, import it into the intended Vercel account, verify the deployed URL, then update docs/submission-links.json and regenerate this PDF. No live link has been invented.",
+);
+newPage("THE EDITORIAL DECISION");
+heading("Every choice has a reason.");
+para(
+  "Compare the alternatives. See what changed. Keep the thinking with the take.",
+  13,
+);
+if (fs.existsSync("docs/screenshots/studio-comparison.png")) {
+  doc.image("docs/screenshots/studio-comparison.png", 44, doc.y, {
+    fit: [507, 345],
+    align: "center",
+  });
+  doc.y += 358;
+}
+section(
+  "A focused, testable differentiator",
+  "The workspace connects a brief and visual references to exact generation requests, then preserves the relationship between those requests and a deliberate editorial choice. Continuity review checks metadata and decisions; it never invents an AI consistency score.",
+);
+section(
+  "Reliable enough to resume",
+  "Browser-local autosave is explicit. Undo restores editorial changes while retaining completed generations. Validated import creates a separate project. Unfinished simulations are marked interrupted after reload.",
+);
+section(
+  "Prepared for review",
+  "Source, README, product-thinking answers, competitor evidence and verification scripts are included. Live GitHub and Vercel links remain pending publication to the intended accounts.",
 );
 doc.end();
 console.log("Created output/pdf/Fomi-Continuity-Submission.pdf");

@@ -17,7 +17,35 @@ export function useGeneration(setState) {
   const put = (id, value) => {
     if (alive.current) setJobs((j) => ({ ...j, [id]: value }));
   };
+  const record = (projectId, shotId, message) =>
+    setState((s) => ({
+      ...s,
+      projects: s.projects.map((p) =>
+        p.id !== projectId
+          ? p
+          : {
+              ...p,
+              activity: [
+                ...(p.activity || []).slice(-59),
+                {
+                  id: crypto.randomUUID(),
+                  shotId,
+                  message,
+                  at: new Date().toISOString(),
+                },
+              ],
+            },
+      ),
+    }));
   const cancel = (id) => {
+    if (running.current[id]) {
+      const controller = running.current[id];
+      record(
+        controller.projectId,
+        id,
+        "Generation cancelled. Selected take retained.",
+      );
+    }
     running.current[id]?.abort();
     delete running.current[id];
     put(id, {
@@ -28,8 +56,14 @@ export function useGeneration(setState) {
   async function start(projectId, shotId, request, fail = false) {
     if (running.current[shotId]) return;
     const controller = new AbortController();
+    controller.projectId = projectId;
     running.current[shotId] = controller;
     put(shotId, { status: "queued" });
+    record(
+      projectId,
+      shotId,
+      "Generation queued with a saved direction snapshot.",
+    );
     const delay = (ms) =>
       new Promise((resolve) => {
         const timer = setTimeout(() => {
@@ -84,13 +118,25 @@ export function useGeneration(setState) {
         status: "completed",
         message: "Two alternatives ready. Your chosen take is unchanged.",
       });
+      record(
+        projectId,
+        shotId,
+        "Two alternatives completed. Selected take retained.",
+      );
     } catch (e) {
-      if (e.name !== "AbortError")
+      if (e.name !== "AbortError") {
         put(shotId, { status: "failed", message: e.message });
+        record(projectId, shotId, `Generation failed: ${e.message}`);
+      }
     } finally {
       if (running.current[shotId] === controller)
         delete running.current[shotId];
     }
   }
-  return { jobs, start, cancel };
+  const resetGeneration = () => {
+    Object.values(running.current).forEach((c) => c.abort());
+    running.current = {};
+    setJobs({});
+  };
+  return { jobs, start, cancel, resetGeneration };
 }

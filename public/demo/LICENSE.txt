@@ -1,9 +1,14 @@
-Original Fomi Continuity demo artwork and motion fixtures
+﻿Fomi Continuity prepared fixture media
 
-To the extent possible under law, the creator dedicates the original SVG posters,
-canvas artwork and WebM clips in this directory to the public domain under
-CC0 1.0 Universal: https://creativecommons.org/publicdomain/zero/1.0/
+The current campaign stills were created for this project using the built-in
+image-generation tool. Canvas pan/scale animation produced the local WebM
+motion studies. No third-party stock footage was downloaded. These prepared
+assets are not output from an AI model running in this application.
 
-These are original stylized product studies created for this assessment.
-They are fixture footage, not AI-generated output from this application.
-Third-party software and icons retain their own licenses.
+To the extent rights exist, the creator dedicates the project-created fixture
+artwork, posters and motion studies to the public domain under CC0 1.0:
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Legacy SVG references are original procedural artwork. User-uploaded reference
+images and third-party software/icons retain their own rights and licenses.
+See docs/MEDIA.md for provenance, prompts and production method.
