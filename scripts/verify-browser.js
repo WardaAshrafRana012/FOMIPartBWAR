@@ -57,7 +57,7 @@ await check(
       .fill("Warm light through a blue-hour window.");
     await page.getByRole("button", { name: "Done", exact: true }).click();
     await page
-      .getByRole("button", { name: "Shot overrides & reference" })
+      .getByRole("button", { name: "Change rules for this shot" })
       .click();
     await page
       .locator(".advanced")
@@ -81,7 +81,7 @@ await check(
     );
     assert.equal(p.shots[0].referenceIds.length, 2);
     await page
-      .getByRole("button", { name: "Earlier DNA · see changes" })
+      .getByRole("button", { name: "Style rules changed · see what changed" })
       .click();
     await page.getByText("1 creative rule has changed").waitFor();
     await page.screenshot({
@@ -127,8 +127,8 @@ await check(
     const payload = (await req).postDataJSON();
     assert.equal(payload.references.length, 2);
     assert.equal(payload.direction.camera, "Locked tripod; no camera orbit.");
-    await page.getByText("Request queued…").waitFor();
-    await page.getByText("Developing alternatives…").waitFor();
+    await page.getByText("Waiting to start…").waitFor();
+    await page.getByText("Preparing two versions…").waitFor();
     await page.locator(".storyboard .shot-select").nth(1).click();
     await page.waitForTimeout(3500);
     await page.locator(".storyboard .shot-select").first().click();
@@ -147,14 +147,14 @@ await check("cancel, deliberate failure and successful retry", async () => {
   await page.getByRole("button", { name: "Cancel generation" }).click();
   await page.getByText("Cancelled. Your selected take is unchanged.").waitFor();
   await page
-    .getByRole("button", { name: "Shot overrides & reference" })
+    .getByRole("button", { name: "Change rules for this shot" })
     .click();
-  await page.getByLabel("Demonstrate generation failure").check();
+  await page.getByLabel("Test a failed request").check();
   await page.getByRole("button", { name: "Retry · 2 alternatives" }).click();
   await page
     .getByText("Demonstration failure. No takes were added. Retry when ready.")
     .waitFor();
-  await page.getByLabel("Demonstrate generation failure").uncheck();
+  await page.getByLabel("Test a failed request").uncheck();
   await page.getByRole("button", { name: "Retry · 2 alternatives" }).click();
   await page
     .getByText("Two alternatives ready. Your chosen take is unchanged.")
@@ -249,10 +249,10 @@ await check(
   "continuity navigation and accurate downloadable package",
   async () => {
     await page
-      .getByRole("button", { name: "Continuity", exact: false })
+      .getByRole("button", { name: "Check sequence", exact: false })
       .first()
       .click();
-    await page.getByRole("heading", { name: "Continuity review" }).waitFor();
+    await page.getByRole("heading", { name: "Check sequence" }).waitFor();
     await page
       .getByRole("button", {
         name: "Choose a take for “A quiet detail”",

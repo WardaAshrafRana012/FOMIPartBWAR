@@ -36,7 +36,7 @@ export default function CreativeRibbon({
         onClick={onDNA}
         aria-label="Edit project Creative DNA"
       >
-        <span className="ribbon-title">
+        <span className="ribbon-title" title="Creative DNA means the style rules shared by every shot.">
           <Sparkles size={15} /> Creative DNA
         </span>
         <Image src={project.references?.[0]?.src || "/demo/study-reveal.webp"} alt="" width={68} height={36} />

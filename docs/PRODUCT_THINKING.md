@@ -40,3 +40,6 @@ Observe directors resuming genuine projects and test whether they can recover in
 
 ### Final visual and sample-media decisions
 A light editorial shell and dark cinema stage combine the contact-sheet overview with focused direction. Desktop views change the layout rather than creating separate tools. Hover and entrance effects respect reduced motion. Two supplied portrait ads are first-shot sample alternatives, explicitly distinct from mock model output. Original campaign fixtures remain available so the chosen coherent campaign is preserved. Actual clip duration and planned shot duration are separate; this frontend does not silently trim or reframe supplied footage.
+
+### Clarity refinement after the comparison
+The earlier review led to concrete changes: the chosen short version opens first; full films are in a separate library; comparisons exclude full source films; Check sequence is explicit; style inheritance is explained in plain language. Labels are larger and the stage is more compact so versions and notes appear higher. Focus mode supports closer media inspection. This trades some default preview height for decision visibility. No claim is made that children or professional directors have validated the wording.

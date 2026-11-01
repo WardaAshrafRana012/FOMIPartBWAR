@@ -41,14 +41,14 @@ await page.getByRole("button", { name: "Direction", exact: true }).click();
 await page
   .locator("#prompt")
   .fill("A slow macro study of luminous amber glass.");
-await page.getByRole("button", { name: "Shot overrides & reference" }).click();
+await page.getByRole("button", { name: "Change rules for this shot" }).click();
 await page
   .locator(".advanced")
   .getByRole("textbox")
   .last()
   .fill("Static camera, no movement.");
 await page.getByRole("button", { name: "Generate 2 alternatives" }).click();
-await page.getByText("Developing alternatives…").waitFor();
+await page.getByText("Preparing two versions…").waitFor();
 await page.getByRole("button", { name: "Preview", exact: true }).click();
 await page.getByRole("button", { name: "Shots", exact: false }).first().click();
 await page.getByRole("dialog").locator(".shot-select").nth(2).click();
@@ -71,7 +71,7 @@ await page
     b.click();
     b.click();
   });
-await page.getByText("Developing alternatives…").waitFor();
+await page.getByText("Preparing two versions…").waitFor();
 await page.reload();
 await page
   .getByRole("heading", { name: "Light and silhouette", exact: true })

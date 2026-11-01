@@ -3,6 +3,7 @@ import { useRef } from "react";
 import Image from "next/image";
 import { Check, Columns2, ChevronLeft, ChevronRight } from "lucide-react";
 import { signature } from "../../lib/project";
+import { shotVersions } from "../../lib/takes";
 export default function TakeStrip({
   shot,
   take,
@@ -12,12 +13,13 @@ export default function TakeStrip({
   setModal,
 }) {
   const strip = useRef(null);
+  const versions = shotVersions(shot);
   return (
     <div className="take-review">
       <div className="takes-heading">
         <h2>
-          Take exploration{" "}
-          <span>{String(shot.takes.length).padStart(2, "0")}</span>
+          Versions of this shot{" "}
+          <span>{String(versions.length).padStart(2, "0")}</span>
         </h2>
         <div>
           <button
@@ -37,7 +39,7 @@ export default function TakeStrip({
             <ChevronRight size={14} />
           </button>
           <button
-            disabled={shot.takes.length < 2}
+            disabled={versions.length < 2}
             onClick={() => setModal("compare")}
           >
             <Columns2 size={14} /> Compare takes
@@ -50,7 +52,7 @@ export default function TakeStrip({
         tabIndex={0}
         aria-label="Takes, scroll horizontally"
       >
-        {shot.takes.map((t) => (
+        {versions.map((t) => (
           <button
             key={t.id}
             aria-pressed={take?.id === t.id}
@@ -76,7 +78,7 @@ export default function TakeStrip({
               <strong>{t.name}</strong>
               <small>
                 {t.dnaSignature !== signature(project.dna)
-                  ? "Earlier DNA"
+                  ? "Uses earlier style rules"
                   : take?.id === t.id
                     ? "Previewing"
                     : "Alternative"}
@@ -100,10 +102,10 @@ export default function TakeStrip({
             )}
           </button>
           <label>
-            WHY THIS TAKE
+            WHY YOU CHOSE IT
             <input
               aria-label="Decision note"
-              placeholder="Leave a reason for your future self…"
+              placeholder="For example: the slower movement works better"
               value={take.note ?? (take.id === shot.chosen ? shot.note : "")}
               maxLength={500}
               onChange={(e) => {
@@ -122,6 +124,8 @@ export default function TakeStrip({
           </label>
         </div>
       )}
+      <p className="versions-help">A take is one version of a shot. Preview it, then choose it for your sequence. This demo may reuse the same clip for two versions.</p>
+      <button className="source-films-link" onClick={() => setModal("samples")}>Watch full sample films <span>Separate examples, not shot versions ↗</span></button>
     </div>
   );
 }

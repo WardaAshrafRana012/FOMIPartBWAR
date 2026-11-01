@@ -3,8 +3,10 @@ import { useRef, useState } from "react";
 import { Play, Pause, Check, ArrowRight, ArrowLeft } from "lucide-react";
 import Media from "./Media";
 import { SettingsDiff } from "./DirectionDiff";
+import { shotVersions } from "../../lib/takes";
 export function Compare({ shot, choose, project, onNote }) {
-  const [ids, setIds] = useState(shot.takes.slice(-2).map((t) => t.id)),
+  const versions = shotVersions(shot);
+  const [ids, setIds] = useState(versions.slice(-2).map((t) => t.id)),
     [sync, setSync] = useState(false);
   const ref = useRef(null);
   const takes = ids.map((id) => shot.takes.find((t) => t.id === id));
@@ -57,7 +59,7 @@ export function Compare({ shot, choose, project, onNote }) {
                   );
                 }}
               >
-                {shot.takes.map((t) => (
+                {versions.map((t) => (
                   <option key={t.id} value={t.id}>
                     {t.name}
                   </option>

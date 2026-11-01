@@ -23,6 +23,8 @@ import { seed } from "../../data/seed";
 import { Compare, SequenceReview } from "./Review";
 import { DirectionDiff } from "./DirectionDiff";
 import Storyboard from "./Storyboard";
+import Media from "./Media";
+import { suppliedMedia } from "../../lib/supplied-media";
 function download(project) {
   const url = URL.createObjectURL(
     new Blob([JSON.stringify(packageProject(project), null, 2)], {
@@ -79,6 +81,7 @@ export default function ProjectDialogs({
       title={
         {
           dna: "Creative DNA",
+          samples: "Full sample films",
           brief: "The creative brief",
           compare: "Compare alternatives",
           review: "Sequence review",
@@ -87,17 +90,25 @@ export default function ProjectDialogs({
           reset: "Reset this workspace?",
           create: "Create a project",
           rename: "Rename project",
-          settings: "Take provenance",
+          settings: "How this version was made",
           import: "Bring your project back",
-          continuity: "Continuity review",
+          continuity: "Check sequence",
           project: "Project tools",
           shots: "Shot storyboard",
           shortcuts: "A little faster, by keyboard",
         }[modal]
       }
       onClose={onClose}
-      wide={["compare", "review", "dna", "continuity"].includes(modal)}
+      wide={["compare", "review", "dna", "continuity", "samples"].includes(modal)}
     >
+      {modal === "samples" && <>
+        <p className="muted">These full films show the supplied footage. They are separate examples, may show different products, and are not versions of your selected shot. The app does not generate them.</p>
+        <div className="sample-film-grid">{suppliedMedia.map(t => <section key={t.id}>
+          <h3>{t.name}</h3><Media take={{...t, mediaOrigin:"user-supplied"}} compact />
+          <p>{t.duration.toFixed(1)} seconds · portrait. Your sequence uses short shot clips instead.</p>
+          <a className="button" href={t.src} download>Download sample film</a>
+        </section>)}</div>
+      </>}
       {modal === "project" && (
         <>
           <p className="muted" role="status">
@@ -145,10 +156,11 @@ export default function ProjectDialogs({
           <div className="dna-dialog-heading">
             <span className="dna-mark">✳</span>
             <div>
-              <p className="dialog-intro">One look. Every moment.</p>
+              <p className="dialog-intro">One set of style rules for every shot.</p>
               <p className="muted">
-                Shared direction for this campaign. Changes affect future
-                requests; existing takes retain their original settings.
+                Creative DNA is your project's shared style: the product, look,
+                light, colors and camera movement. Changes apply to new requests.
+                Older versions keep the settings they used before.
               </p>
             </div>
           </div>

@@ -285,7 +285,7 @@ export default function Workspace() {
             onClick={() => setModal("continuity")}
           >
             <ClipboardCheck size={15} />
-            <span>Continuity</span>
+            <span>Check sequence</span>
             <small>{issues.length}</small>
           </button>
           <button className="export-button" onClick={() => setModal("export")}>
@@ -409,12 +409,12 @@ export default function Workspace() {
                     {take?.name || "NO TAKE YET"}
                     <span className="stage-mode">
                       {take?.id === shot.chosen
-                        ? "SELECTED VERSION"
-                        : "EXPLORING"}
+                        ? "IN YOUR SEQUENCE"
+                        : "PREVIEW ONLY"}
                     </span>
                   </span>
                   <span>
-                    {take?.actualAspect || shot.aspect} <span>·</span> {take?.actualDuration ? `${take.actualDuration.toFixed(1)}s source / ` : ""}{shot.duration}s planned
+                    {take?.actualAspect || shot.aspect} <span>·</span> {take?.actualDuration ? `${take.actualDuration.toFixed(1)}s clip · ` : ""}{shot.duration}s planned
                   </span>
                 </div>
                 <Media
@@ -437,7 +437,7 @@ export default function Workspace() {
                       className="earlier-dna"
                       onClick={() => setModal("settings")}
                     >
-                      Earlier DNA · see changes
+                      Style rules changed · see what changed
                     </button>
                   )}
                 </span>

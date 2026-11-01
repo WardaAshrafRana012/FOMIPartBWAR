@@ -3,10 +3,12 @@ import assert from "node:assert/strict";
 import { seed } from "../data/seed.js";
 import { recover } from "../lib/project.js";
 import { withSuppliedMedia } from "../lib/supplied-media.js";
+import { openChosenVersion, shotVersions } from "../lib/takes.js";
 test("supplied examples are first, round-trip safely and never replace a chosen take", () => {
   const state = seed(), project = state.projects[0], shot = project.shots[0];
   assert.equal(shot.takes[0].src, "/demo/supplied-01.mp4");
-  assert.equal(shot.preview, shot.takes[0].id);
+  assert.equal(shot.preview, shot.chosen);
+  assert.equal(shotVersions(shot).length, 2);
   assert.equal(shot.chosen, "take-0-1");
   assert.equal(shot.takes[0].actualAspect, "9:16");
   assert.equal(recover(JSON.stringify(state), seed).recovered, false);
@@ -22,4 +24,14 @@ test("supplied examples are first, round-trip safely and never replace a chosen 
   const invalid = structuredClone(state);
   invalid.projects[0].shots[0].takes[0].actualDuration = "not a duration";
   assert.equal(recover(JSON.stringify(invalid), seed).recovered, true);
+});
+test("clarity migration opens the chosen clip without changing choices or notes", () => {
+  const p = seed().projects[0]; delete p.reviewClarityVersion;
+  p.shots[0].preview = "sample-supplied-one"; p.shots[0].note = "Keep this";
+  const migrated = openChosenVersion(p);
+  assert.equal(migrated.shots[0].preview, p.shots[0].chosen);
+  assert.equal(migrated.shots[0].note, "Keep this");
+  const chosenSource = structuredClone(p); chosenSource.shots[0].chosen = chosenSource.shots[0].preview;
+  assert.equal(openChosenVersion(chosenSource).shots[0].preview, "sample-supplied-one");
+  assert.deepEqual(openChosenVersion(migrated), migrated);
 });

@@ -54,7 +54,7 @@ export default function DirectionPanel({
           <div className="direction-body">
             <div className="inspector-intro">
               <span className="eyebrow">THE IDEA BEHIND THE FRAME</span>
-              <h3>Direct this moment.</h3>
+              <h3>Describe this shot.</h3>
             </div>
             <div className="field-label">
               <label htmlFor="prompt">Shot direction</label>
@@ -72,11 +72,11 @@ export default function DirectionPanel({
             <button className="inherit-note" onClick={() => setModal("dna")}>
               <span>✳</span>
               <span>
-                <strong>Creative DNA is connected</strong>
+                <strong>Creative DNA · shared style rules</strong>
                 <small>
                   {rules.filter((k) => shot.overrides[k]?.trim()).length
                     ? `${rules.filter((k) => shot.overrides[k]?.trim()).length} shot override(s)`
-                    : "Inheriting all 5 project rules"}
+                    : "Using all 5 rules from this project"}
                 </small>
               </span>
               <ArrowUpRight size={13} />
@@ -98,7 +98,7 @@ export default function DirectionPanel({
                 </select>
               </label>
               <label className="field">
-                Aspect ratio
+                Video shape
                 <select
                   value={shot.aspect}
                   onChange={(e) => editShot({ aspect: e.target.value })}
@@ -110,23 +110,23 @@ export default function DirectionPanel({
               </label>
             </div>
             <p id="direction-help" className="setting-hint">
-              Requested settings are saved metadata. Sample clips retain their
-              original format.
+              These settings are saved with your request. In this demo, they do
+              not change the sample video.
             </p>
             <details className="effective-details">
               <summary>
-                Effective direction <span>View request</span>
+                What will be sent <span>Prompt + style rules</span>
               </summary>
               <div className="effective-summary">
                 <p>
-                  Your prompt and these rules form the next generation request.
-                  Existing takes keep their snapshots.
+                  Your description and these rules are saved for the next
+                  request. Older versions keep the settings they used before.
                 </p>
                 {rules.map((k) => (
                   <div key={k}>
                     <span className="eyebrow">
                       {labels[k]}
-                      <b>{shot.overrides[k] ? "OVERRIDE" : "INHERITED"}</b>
+                      <b>{shot.overrides[k] ? "CHANGED FOR THIS SHOT" : "FROM PROJECT"}</b>
                     </span>
                     <p>{effective(project, shot)[k]}</p>
                   </div>
@@ -138,7 +138,7 @@ export default function DirectionPanel({
               aria-expanded={advanced}
               onClick={() => setAdvanced(!advanced)}
             >
-              <SlidersHorizontal size={14} /> Shot overrides & reference{" "}
+              <SlidersHorizontal size={14} /> Change rules for this shot{" "}
               <span>{advanced ? "−" : "+"}</span>
             </button>
             {advanced && (
@@ -146,7 +146,7 @@ export default function DirectionPanel({
                 {rules.map((k) => (
                   <label key={k} className="field">
                     {labels[k]}
-                    <span>{shot.overrides[k] ? "OVERRIDE" : "INHERITED"}</span>
+                    <span>{shot.overrides[k] ? "THIS SHOT ONLY" : "FROM PROJECT"}</span>
                     <input
                       maxLength={1000}
                       value={shot.overrides[k] || ""}
@@ -171,7 +171,7 @@ export default function DirectionPanel({
                     checked={fail}
                     onChange={(e) => setFail(e.target.checked)}
                   />{" "}
-                  Demonstrate generation failure
+                  Test a failed request
                 </label>
               </div>
             )}
@@ -186,7 +186,7 @@ export default function DirectionPanel({
                 />
               </label>
               <label className="field">
-                STORY BEAT
+                WHAT HAPPENS IN THIS SHOT
                 <input
                   maxLength={180}
                   value={shot.description}
@@ -208,10 +208,10 @@ export default function DirectionPanel({
           <div className="history-panel">
             <div className="inspector-intro">
               <span className="eyebrow">EVERY TAKE HAS A STORY</span>
-              <h3>Keep your reasoning.</h3>
+              <h3>Past versions and choices.</h3>
               <p>
-                Saved requests and editorial decisions. No analysis of the
-                footage.
+                See the settings used before and why a version was chosen.
+                These are saved records, not an AI check of the video.
               </p>
             </div>
             {[...shot.takes].reverse().map((t) => (
@@ -289,9 +289,9 @@ export default function DirectionPanel({
               <span className={busy ? "spinner" : ""} />
               <strong>
                 {job.status === "generating"
-                  ? "Developing alternatives…"
+                  ? "Preparing two versions…"
                   : job.status === "queued"
-                    ? "Request queued…"
+                    ? "Waiting to start…"
                     : job.status.charAt(0).toUpperCase() + job.status.slice(1)}
               </strong>
             </div>

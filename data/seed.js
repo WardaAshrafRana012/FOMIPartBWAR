@@ -1,6 +1,7 @@
 import { requestFor, signature } from "../lib/project.js";
 import { withSuppliedMedia } from "../lib/supplied-media.js";
 import { withMatchedStoryboard } from "../lib/storyboard-media.js";
+import { openChosenVersion } from "../lib/takes.js";
 export function seed() {
   const p = {
     id: "after-hours",
@@ -93,5 +94,5 @@ export function seed() {
   p.dna.palette = "Warm ivory, frosted white, aromatic brown, amber, near-black.";
   const directions = ["Reveal the frosted fragrance bottle against softly lit ivory fabric. Keep the original product label readable.", "Move into the dark cap and frosted glass details from the supplied product film. Emphasize the material finish.", "Hold the bottle silhouette in soft directional light against ivory fabric. Keep the source label intact.", "Return to a product signature with the citrus and floral elements visible in the supplied film. Preserve original branding and portrait composition."];
   p.shots.forEach((s,i) => { s.prompt = directions[i]; s.aspect = "9:16"; s.duration = 4; s.takes.forEach(t => { t.request = requestFor(p,s); t.dnaSignature = signature(p.dna); }); });
-  return { version: 1, active: p.id, projects: [withMatchedStoryboard(withSuppliedMedia(p))] };
+  return { version: 1, active: p.id, projects: [openChosenVersion(withMatchedStoryboard(withSuppliedMedia(p)))] };
 }

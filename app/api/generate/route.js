@@ -1,5 +1,4 @@
 import { validateRequest } from "../../../lib/project.js";
-import { suppliedMedia } from "../../../lib/supplied-media.js";
 import { storyboardMedia } from "../../../lib/storyboard-media.js";
 export async function POST(request) {
   let body;
@@ -16,7 +15,6 @@ export async function POST(request) {
   }
   const error = validateRequest(body);
   if (error) return Response.json({ error }, { status: 422 });
-  const fixtures = ["amber", "veil", "ritual", "signature"];
   const hash = [...body.prompt].reduce((n, c) => n + c.charCodeAt(0), 0);
   const index = [0, 1, 2, 3].includes(body.fixtureIndex)
     ? body.fixtureIndex
@@ -25,11 +23,8 @@ export async function POST(request) {
     id: crypto.randomUUID(),
     stages: ["queued", "generating", "completed"],
     takes: [0, 1].map((n) => ({
-      ...(index === 0 ? { ...suppliedMedia[(hash + n) % 2], mediaOrigin: "user-supplied", actualDuration: suppliedMedia[(hash + n) % 2].duration, actualAspect: "9:16", provenance: "Supplied demo footage, not generated from the submitted request." } : {}),
       id: crypto.randomUUID(),
-      ...(index !== 0 ? storyboardMedia[index] : {}),
-      src: index === 0 ? suppliedMedia[(hash + n) % 2].src : storyboardMedia[index].src,
-      poster: index === 0 ? suppliedMedia[(hash + n) % 2].poster : storyboardMedia[index].poster,
+      ...storyboardMedia[index],
       request: body,
       createdAt: new Date().toISOString(),
       dnaSignature: body.dnaSignature,
