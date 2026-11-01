@@ -1,0 +1,51 @@
+﻿import PDFDocument from 'pdfkit';
+import fs from 'node:fs';
+fs.mkdirSync('output/pdf',{recursive:true});
+const out='output/pdf/Fomi-WAR-Part-B-Submission.pdf';
+const d=new PDFDocument({size:'A4',margin:42,autoFirstPage:false,info:{Title:'Fomi WAR - Part B Product Thinking Challenge',Author:'Fomi WAR assessment'}});
+d.pipe(fs.createWriteStream(out));
+const C={ink:'#243c2e',muted:'#596956',line:'#cbd4c3',bg:'#f4f5ed'};let n=0;
+function page(label,title){d.addPage();n++;d.rect(0,0,595.28,841.89).fill(C.bg);d.rect(0,0,595.28,7).fill(C.ink);d.fillColor(C.muted).font('Helvetica').fontSize(8).text('FOMI / WAR',42,28,{characterSpacing:1.6});d.text(label,310,28,{width:243,align:'right'});d.moveTo(42,787).lineTo(553,787).strokeColor(C.line).stroke();d.fillColor(C.muted).fontSize(8).text('PART B / VIDEO GENERATION WORKSPACE',42,801,{lineBreak:false});d.text(String(n).padStart(2,'0'),530,801,{lineBreak:false});d.x=42;d.y=71;d.fillColor(C.ink).font('Helvetica-Bold').fontSize(27).text(title,{width:511,lineGap:2});d.moveDown(.7);}
+function p(t,size=10){d.fillColor(C.ink).font('Helvetica').fontSize(size).text(t,{width:511,lineGap:4});d.moveDown(.7);}
+function s(h,t){d.fillColor(C.ink).font('Helvetica-Bold').fontSize(12).text(h,{width:511});d.moveDown(.35);p(t);}
+function link(label,url){d.fillColor(C.muted).font('Helvetica-Bold').fontSize(9).text(label);d.moveDown(.25);d.fillColor('#275941').font('Helvetica').fontSize(10).text(url,{link:url,underline:true,width:511});d.moveDown(.8);}
+function img(path,h){const y=d.y;d.image(path,42,y,{fit:[511,h],align:'center'});d.y=y+h+12;d.x=42;}
+page('ASSESSMENT SUBMISSION','Fomi - WAR');
+p('From a creative brief to a deliberate sequence.',17);
+p('An interactive frontend for a professional creative director returning to an existing fragrance campaign. Shared Creative DNA, explicit shot overrides and saved take decisions keep the project\'s intention visible.');
+img('docs/screenshots/review-war-desktop.png',320);
+link('PRIMARY DEMO','https://fomi-part-b-war.vercel.app/');
+link('SOURCE REPOSITORY','https://github.com/WardaAshrafRana012/FOMIPartBWAR');
+link('EARLIER EXPLORATION','https://fomia-mockup.vercel.app/');
+p('Selected category: Video Generation Workspace. No API keys required. Generation is simulated using prepared local footage; the app does not perform model inference.',9);
+page('PRODUCT THINKING','Keep the intention visible.');
+s('What problem am I solving?','Individual clips are easy to produce; a coherent project is harder to resume. A director must recover the brief, understand the direction used for each take, compare alternatives and remember why a version was chosen. WAR keeps that reasoning with the shots and sequence.');
+s('Who is the user?','A professional creative director working across multiple sessions on a short campaign. The app opens into AFTER HOURS, an existing project with a brief, four planned shots, takes and a chosen sequence.');
+s('UX decision 1 / Shared direction, explicit exceptions','Five editable Creative DNA rules supply shot defaults. Overrides make exceptions visible, and Effective direction exposes the combined request. Each take keeps a snapshot. Earlier-DNA labels describe changed metadata, not AI footage analysis or guaranteed consistency.');
+s('UX decision 2 / Explore before committing','Previewing an alternative does not change the chosen sequence. New results append without replacing a choice. Comparison, take-specific notes and history preserve both the options and the reason for the final decision.');
+s('UX decision 3 / Keep the film close','Desktop combines a storyboard, dominant stage, contextual inspector and sequence dock. Storyboard view expands the contact sheet. Mobile uses Preview, Direction and Sequence modes with a shot picker instead of shrinking the desktop columns. Advanced settings stay disclosed on demand.');
+s('The single differentiating workflow','Brief > Creative DNA and references > explicit shot request > frozen take provenance > comparison > selection with a reason > sequence review > portable project package.');
+page('SCOPE / INFLUENCES','Make a focused daily tool.');
+s('What did I intentionally leave out?','Real inference, accounts, payments, cloud collaboration and an external database would distract from the frontend assessment. Trimming, audio mixing and rendered MP4 export were also excluded. Consecutive full-clip review and a downloadable JSON package communicate the actual scope.');
+s('Which products inspired the thinking?','Google Flow informed references and scene assembly; Krea informed comparison; Runway informed reference persistence. Premiere Pro and DaVinci Resolve informed source review versus sequence commitment; Figma informed shared defaults and local exceptions. Meta Edits informed a phone-specific layout.');
+s('What did I like, and what would I improve?','Connected input, generation and review reduce context switching. My design emphasis is making submitted settings, reference lifetime, selected versions, decision notes and export consequences visible together. Desk research informed this hypothesis; I do not claim competitors lack these capabilities or that usability improvement has been measured.');
+s('What would I improve with another month?','Observe directors resuming genuine projects and measure task completion and errors. Prioritize readable metadata, clearer first-run preview/choice cues and more varied fixtures. Test screen readers, real Safari/iOS, touch devices and zoom. Add IndexedDB quota management, stronger recovery, revision history and cross-tab conflict handling.');
+s('Visual direction and trade-off','Soft geometric Plus Jakarta Sans and restrained ivory/sage clay surfaces frame a dark cinematic stage. The treatment gives controls tactile feedback, while reduced-motion support retains a quieter experience. Small metadata and nested scroll regions remain refinement opportunities.');
+p('Research sources and evidence distinctions are documented in docs/COMPETITOR_UX_REVIEW.md. No interviews, user study, preference test or measured performance score is claimed.',9);
+page('WORKING FRONTEND','A complete, honest demo.');
+s('The working path','Resume the campaign; edit Creative DNA or shot direction; generate mocked alternatives; follow queued/generating/completed states; compare, choose and annotate; review selected clips consecutively; export the current JSON package. Cancellation, deliberate failure and retry are available.');
+s('Architecture','Next.js App Router and JavaScript; CSS; a validated POST /api/generate handler; separate project/editor transformations and persistence/generation hooks; reusable storyboard, inspector, media, comparison and dialog components. Browser-local versioned storage recovers malformed data and surfaces save failures.');
+s('What was verified?','Production build and 14 meaningful state tests passed. Live Chrome checks covered generation validation, cancellation/failure/retry, comparison, notes, frame capture, references, persistence, import/export, keyboard dialogs and sequence advancement. Responsive checks covered 360, 390, 430, 768, 1024, 1280, 1440 and 1920px. No unexpected page/console errors occurred in that workflow run.');
+s('Media, timing and export boundaries','The default storyboard uses matching source frames and approximately four-second silent excerpts from one supplied product film. Both full supplied films remain alternatives and can show different brands. Some alternative fixtures repeat an excerpt. Requests do not change pixels; planned timing does not trim a source clip. Export is JSON with media paths, not a rendered MP4.');
+s('Known limits','Supplied media retains its owners\' rights; independent redistribution permission has not been verified. Storage is local, not cloud sync. Playback/comparison is not frame accurate. Screen-reader, physical-device and real Safari/iOS testing remain unverified. Vercel is live; automatic GitHub deployment integration still needs repository access.');
+p('Verification: npm test; npm run build; BASE_URL=<demo> node scripts/verify-browser.js. Additional scripts and detailed evidence are in docs/ASSESSMENT_CHECKLIST.md.',9);
+page('DESIGN EVOLUTION','Why WAR is the submission.');
+const y=d.y;
+d.image('docs/screenshots/review-mockup-desktop.png',42,y,{fit:[249,160]});d.image('docs/screenshots/review-war-desktop.png',304,y,{fit:[249,160]});d.y=y+172;d.x=42;
+p('Left: earlier mockup. Right: WAR. Both captured live at 1440 x 900 on 1 November 2026.',8);
+s('What the earlier mockup does well','A lighter image-first creation gallery with familiar prompt and result browsing. The separate Video view provides a local motion sample workflow. Its simpler first step is useful for individual creation; this does not make it a weak design for that different task.');
+s('What WAR improves for this challenge','The returning user sees a real project rather than an empty Projects view. Shared direction, inherited rules, request snapshots, alternatives, notes and sequence review form one connected task. The stage and inspector establish a stronger working hierarchy. Explicit simulated-generation and package-export labels make the demo easier to assess honestly.');
+s('Where WAR can still confuse','Metadata is small; the take strip starts low in the desktop scroll region. The first full-sample preview is longer than the chosen excerpt, so preview versus choice and source versus plan require attention. Different-brand full-film alternatives and repeated fixtures should be explained rather than presented as consistency evidence.');
+s('Conclusion and evidence limits','WAR is the stronger fit for the supplied Video Generation Workspace brief. That is an expert assessment of the implemented workflow, not a validated claim that every user prefers it. Both home pages and the mockup Video/Projects views were inspected at desktop and mobile widths; the mockup was not audited with WAR\'s complete test suite.');
+p('The assessment interpretation follows the brief supplied in the project conversation. A separate original employer assessment PDF or URL was not available. Full comparison: docs/LIVE_COMPARISON.md.',9);
+d.end();console.log('Created',out);
