@@ -9,7 +9,7 @@ const doc = new PDFDocument({
   margin: 44,
   autoFirstPage: false,
   info: {
-    Title: "Fomi - Continuity | Part B submission",
+    Title: "Fomi - WAR | Part B submission",
     Author: "Fomi Continuity assessment",
   },
 });
@@ -30,7 +30,7 @@ function newPage(label) {
     .fillColor(muted)
     .font("Helvetica")
     .fontSize(8)
-    .text("FOMI / CONTINUITY", 44, 29, { characterSpacing: 1.5 });
+    .text("FOMI / WAR", 44, 29, { characterSpacing: 1.5 });
   doc.text(label, 340, 29, { width: 210, align: "right", characterSpacing: 1 });
   doc.moveTo(44, 787).lineTo(551, 787).strokeColor("#d0d2c1").stroke();
   doc
@@ -79,7 +79,7 @@ function section(title, text) {
 }
 newPage("SUBMISSION DRAFT");
 label("A CREATIVE THREAD, FROM BRIEF TO SEQUENCE");
-heading("Fomi - Continuity");
+heading("Fomi - WAR");
 para(
   "A daily workspace for the creative director returning to a film in progress.",
   16,
@@ -168,8 +168,8 @@ narrow(
 );
 doc.y = Math.max(doc.y, 650);
 section(
-  "Publishing action remaining",
-  "Create and push to the intended GitHub repository, import it into the intended Vercel account, verify the deployed URL, then update docs/submission-links.json and regenerate this PDF. No live link has been invented.",
+  "Live deployment verified",
+  "Published in the WAR Vercel team. Live Chrome checks verified navigation, supplied video playback, persistent selections, sequence advancement and mobile overflow. GitHub automatic deployment integration still requires repository access; the live app was deployed directly through the CLI.",
 );
 newPage("THE EDITORIAL DECISION");
 heading("Every choice has a reason.");
@@ -194,7 +194,7 @@ section(
 );
 section(
   "Prepared for review",
-  "Source, README, product-thinking answers, competitor evidence and verification scripts are included. Live GitHub and Vercel links remain pending publication to the intended accounts.",
+  "Source, README, product-thinking answers, competitor evidence and verification scripts are included. Verified Vercel demo and GitHub repository links are provided on the first page. Supplied footage retains its owners' rights.",
 );
 doc.end();
 console.log("Created output/pdf/Fomi-Continuity-Submission.pdf");

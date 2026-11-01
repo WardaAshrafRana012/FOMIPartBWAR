@@ -105,3 +105,6 @@ The native browser integration was unavailable/timed out in the earlier session.
 - Supplied files have no independently verified redistribution license; they are excluded from the project fixture CC0 dedication.
 
 Matched storyboard update: four actual source frames and matching four-second portrait excerpts now populate the default selected shots and visual references. The separate second film remains an alternative. This replaces the earlier default still-animation sequence; earlier assets remain available for legacy imported packages.
+
+## Live deployment verification — 1 November 2026
+Demo https://fomi-part-b-war.vercel.app and GitHub https://github.com/WardaAshrafRana012/FOMIPartBWAR are now real, verified links. Vercel deployment reached Ready in the WAR team. Live browser navigation, playback, persistence, sequence advancement and mobile/hover checks passed. This supersedes earlier pending-deployment notes. Automatic GitHub integration remains unconnected; direct CLI deployment succeeded. CLI is authenticated; MCP setup remains unavailable because Codex CLI is not installed.

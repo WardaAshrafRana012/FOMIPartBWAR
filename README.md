@@ -118,3 +118,12 @@ A warm ivory/sage clay treatment adds rounded panels, raised buttons, inset fiel
 
 ### Soft Geometric typography
 Option 3 uses a locally hosted Plus Jakarta Sans variable font through next/font/local. Shot titles use medium weight with tighter tracking; section headings and buttons use restrained semibold weights; body text and form controls share the same family. Responsive sizes retain the phone-specific layout. Font source: Google Fonts repository, ofl/plusjakartasans; copyright The Plus Jakarta Sans Project Authors, SIL Open Font License 1.1. The full license is bundled in public/fonts/OFL-Plus-Jakarta-Sans.txt. No runtime font-provider request is needed.
+
+## Live deployment — 1 November 2026
+- Demo: https://fomi-part-b-war.vercel.app
+- GitHub: https://github.com/WardaAshrafRana012/FOMIPartBWAR
+- Vercel team: WAR (war-e5e8); project: fomi-part-b-war. Direct CLI deployment reached Ready.
+- Live Chrome verification passed navigation, actual supplied MP4 playback, persistence, sequence advancement, hover and mobile overflow.
+- Automatic GitHub deployment integration is not connected: Vercel could not access the GitHub repository through its integration. Connect it in Vercel Project Settings > Git after granting the Vercel GitHub app repository access. Existing live deployment works independently.
+- CLI 65.9.0 is authenticated as wardaashrafrana012. Vercel guidance skills are installed. Global MCP setup was not completed because Codex CLI is not installed in this environment; no authenticated MCP list_teams check was performed.
+- .env.local contains a CLI-generated local OIDC token and is ignored. Never commit it. .vercel is ignored; .vercelignore excludes local tools/builds/outputs and duplicate root videos.

@@ -9,3 +9,5 @@ test-results/
 tmp/
 output/source/
 output/media-originals/
+.vercel
+.env*
